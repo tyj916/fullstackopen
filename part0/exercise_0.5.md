@@ -10,6 +10,8 @@ sequenceDiagram
   server-->>browser: HTML document
   deactivate server
 
+  Note right of browser: The browser loads similarly to the non single page notes app. The difference only happens when user submit new note.
+
   browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
   activate server
   server-->>browser: css file
