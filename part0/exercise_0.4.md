@@ -10,7 +10,7 @@ sequenceDiagram
   server-->>browser: URL redirection
   deactivate server
 
-  Note right of browser: The browser refreshes as requested and load the followings below
+  Note right of browser: The browser reloads as requested by URL redirection from the server, so it loads the followings below again
 
   browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
   activate server

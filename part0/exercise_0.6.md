@@ -10,5 +10,5 @@ sequenceDiagram
   server-->>browser: {"message":"note created"}
   deactivate server
 
-  Note right of browser: The content of html has been altered without the need of redirecting or reloading
+  Note right of browser: The content of html has been updated without the need of redirecting or reloading
 ```
