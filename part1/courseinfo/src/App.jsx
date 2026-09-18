@@ -16,15 +16,13 @@ function Content({ parts }) {
   )
 }
 
-function Footer({ parts }) {
+function Total({ parts }) {
   const totalExercises = parts.reduce((sum, part) => {
     return sum + part.exercises;
   }, 0);
 
   return (
-    <footer>
-      <p>Number of exercises {totalExercises}</p>
-    </footer>
+    <p>Number of exercises {totalExercises}</p>
   )
 }
 
@@ -40,7 +38,7 @@ function App() {
     <div>
       <Header course={course} />
       <Content parts={parts} />
-      <Footer parts={parts} />
+      <Total parts={parts} />
     </div>
   )
 }
