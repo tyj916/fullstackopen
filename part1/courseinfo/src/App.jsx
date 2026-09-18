@@ -1,3 +1,11 @@
+function Header({course}) {
+  return (
+    <header>
+      <h1>{course}</h1>
+    </header>
+  );
+}
+
 function App() {
   const course = 'Half Stack application development'
   const part1 = 'Fundamentals of React'
@@ -9,7 +17,7 @@ function App() {
 
   return (
     <div>
-      <h1>{course}</h1>
+      <Header course={course} />
       <p>
         {part1} {exercises1}
       </p>
