@@ -1,4 +1,4 @@
-function Header({course}) {
+function Header({ course }) {
   return (
     <header>
       <h1>{course}</h1>
@@ -6,13 +6,25 @@ function Header({course}) {
   );
 }
 
-function Content({parts}) {
+function Content({ parts }) {
   return (
     <>
       {parts.map((part) => {
         return <p key={part.title}>{part.title} {part.exercises}</p>
       })}
     </>
+  )
+}
+
+function Footer({ parts }) {
+  const totalExercises = parts.reduce((sum, part) => {
+    return sum + part.exercises;
+  }, 0);
+
+  return (
+    <footer>
+      <p>Number of exercises {totalExercises}</p>
+    </footer>
   )
 }
 
@@ -28,7 +40,7 @@ function App() {
     <div>
       <Header course={course} />
       <Content parts={parts} />
-      {/* <p>Number of exercises {exercises1 + exercises2 + exercises3}</p> */}
+      <Footer parts={parts} />
     </div>
   )
 }
