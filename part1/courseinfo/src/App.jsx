@@ -6,11 +6,21 @@ function Header({ course }) {
   );
 }
 
+function Part({ title, exercises }) {
+  return (
+    <p>{title} {exercises}</p>
+  )
+}
+
 function Content({ parts }) {
   return (
     <>
       {parts.map((part) => {
-        return <p key={part.title}>{part.title} {part.exercises}</p>
+        return <Part 
+          key={part.title} 
+          title={part.title} 
+          exercises={part.exercises} 
+        />
       })}
     </>
   )
