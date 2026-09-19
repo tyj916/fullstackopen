@@ -7,6 +7,7 @@ const Hello = (props) => {
   );
 }
 
+// Only for practice, mostly bad practice
 const PracticeThis = () => {
   const arto = {
     name: 'Arto Hellas',
@@ -20,7 +21,8 @@ const PracticeThis = () => {
     },
   }
 
-  const additionReference = arto.doAddition;
+  const additionReference = arto.doAddition; //works
+  // const greetReference = arto.greet; // doesn't work, 'this' from arto.greet has lost reference
 
   return (
     <>
