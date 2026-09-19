@@ -13,12 +13,21 @@ const PracticeThis = () => {
     age: 35,
     education: 'PhD',
     greet: function() {
-      return 'Hello, my name is ' + this.name;
-    }
+      return 'Hello, my name is ' + this.name + '. I am ' + this.age + ' years old.';
+    },
+    doAddition: function(a, b) {
+      return 'Addition: ' + (a + b);
+    },
   }
 
+  const additionReference = arto.doAddition;
+
   return (
-    <p>{arto.greet()}</p>
+    <>
+      <p>{arto.greet()}</p>
+      <p>{arto.doAddition(1, 4)}</p>
+      <p>{additionReference(10, 15)}</p>
+    </>
   );
 }
 
