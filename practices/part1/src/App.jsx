@@ -33,6 +33,28 @@ const PracticeThis = () => {
   );
 }
 
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  greet() {
+    return 'Hello, my name is ' + this.name;
+  }
+}
+
+const PracticeClass = () => {
+  const adam = new Person('Adam Ondra', 33);
+  const janja = new Person('Janja Garnbret', 27);
+
+  return (
+    <>
+      <p>{adam.greet()}</p>
+      <p>{janja.greet()}</p>
+    </>
+  );
+}
+
 const Footer = () => {
   return (
     <div>
@@ -53,6 +75,7 @@ const App = () => {
       <Hello name={friends[0].name} age={friends[0].age} />
       <Hello name={friends[1].name} age={friends[1].age} />
       <PracticeThis />
+      <PracticeClass />
       <Footer />
     </div>
   );
