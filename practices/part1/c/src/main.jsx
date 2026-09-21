@@ -14,6 +14,8 @@ const refresh = () => {
   )
 }
 
+// this is written for the sake of learning purpose only
+// this is not a recommended method to re-render components
 setInterval(() => {
   refresh();
   counter += 1;
