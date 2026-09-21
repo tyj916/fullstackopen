@@ -18,6 +18,7 @@ const App = () => {
   const [counter, setCounter] = useState(0);
 
   const increaseByOne = () => setCounter(counter + 1);
+  const decreaseByOne = () => setCounter(counter - 1);
   const setToZero = () => setCounter(0);
 
   return (
@@ -25,6 +26,7 @@ const App = () => {
       <Display counter={counter} />
       <Button onClick={increaseByOne} text={"Plus"} />
       <Button onClick={setToZero} text={"Reset"} />
+      <Button onClick={decreaseByOne} text={"Minus"} />
     </div>
   )
 }
