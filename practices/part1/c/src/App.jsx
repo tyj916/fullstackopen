@@ -29,6 +29,7 @@ const App = () => {
       <Hello name={name} age={age} />
       <div>{counter}</div>
       <button onClick={handleClick}>Plus</button>
+      <button onClick={() => setCounter(0)}>Reset</button>
     </div>
   )
 }
