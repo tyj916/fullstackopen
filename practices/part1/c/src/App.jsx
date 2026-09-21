@@ -18,9 +18,8 @@ const App = () => {
   const age = 10
   const [counter, setCounter] = useState(0);
 
-  const handleClick = () => {
-    setCounter(counter + 1);
-  }
+  const increaseByOne = () => setCounter(counter + 1);
+  const setToZero = () => setCounter(0);
 
   return (
     <div>
@@ -28,8 +27,8 @@ const App = () => {
       <Hello name="Maya" age={26 + 10} />
       <Hello name={name} age={age} />
       <div>{counter}</div>
-      <button onClick={handleClick}>Plus</button>
-      <button onClick={() => setCounter(0)}>Reset</button>
+      <button onClick={increaseByOne}>Plus</button>
+      <button onClick={setToZero}>Reset</button>
     </div>
   )
 }
