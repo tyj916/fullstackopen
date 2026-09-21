@@ -4,8 +4,19 @@ import App from './App.jsx'
 
 let counter = 1;
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App counter={counter} />
-  </StrictMode>,
-)
+const root = createRoot(document.getElementById('root'));
+
+const refresh = () => {
+  root.render(
+    <StrictMode>
+      <App counter={counter} />
+    </StrictMode>,
+  )
+}
+
+refresh();
+counter += 1;
+refresh();
+counter += 1;
+refresh();
+
