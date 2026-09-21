@@ -19,7 +19,7 @@ const App = () => {
   const [counter, setCounter] = useState(0);
 
   const handleClick = () => {
-    console.log("Clicked.");
+    setCounter(counter + 1);
   }
 
   return (
