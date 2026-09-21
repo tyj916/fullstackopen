@@ -11,15 +11,17 @@ const Hello = ({ name, age }) => {
   )
 }
 
-const App = () => {
+const App = (props) => {
   const name = 'Peter'
   const age = 10
+  const {counter} = props;
 
   return (
     <div>
       <h1>Greetings</h1>
       <Hello name="Maya" age={26 + 10} />
       <Hello name={name} age={age} />
+      <div>{counter}</div>
     </div>
   )
 }
