@@ -18,9 +18,9 @@ const App = () => {
   const age = 10
   const [counter, setCounter] = useState(0);
 
-  setTimeout(() => {
-    setCounter(counter + 1)
-  }, 1000);
+  const handleClick = () => {
+    console.log("Clicked.");
+  }
 
   return (
     <div>
@@ -28,6 +28,7 @@ const App = () => {
       <Hello name="Maya" age={26 + 10} />
       <Hello name={name} age={age} />
       <div>{counter}</div>
+      <button onClick={handleClick}>Plus</button>
     </div>
   )
 }
