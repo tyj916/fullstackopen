@@ -1,12 +1,7 @@
 import { useState } from 'react'
 
 const Anecdote = ({text}) => <p>{text}</p>
-
-const VoteCount = ({voteCount}) => {
-  return (
-    <p>has {voteCount} votes</p>
-  )
-}
+const VoteCount = ({voteCount}) => <p>has {voteCount} votes</p>
 
 const MostVotes = ({anecdotes, votes}) => {
   const findIndexOfMostVote = () => {
