@@ -7,15 +7,17 @@ const App = () => {
   const [total, setTotal] = useState(0);
 
   const handleLeftClick = () => {
-    setLeft(left + 1);
+    const updatedLeft = left + 1;
+    setLeft(updatedLeft);
     setAll(allClicks.concat('L'));
-    setTotal(left + right);
+    setTotal(updatedLeft + right);
   }
 
   const handleRightClick = () => {
-    setRight(right + 1);
+    const updatedRight = right + 1;
+    setRight(updatedRight);
     setAll(allClicks.concat('R'));
-    setTotal(left + right);
+    setTotal(updatedRight + left);
   }
 
   return (
