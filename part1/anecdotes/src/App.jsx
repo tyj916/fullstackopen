@@ -46,7 +46,25 @@ const App = () => {
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0));
 
-  const handleNextAnecdote = () => setSelected(Math.floor(Math.random() * anecdotes.length));
+  // to eliminate the possibility of random to the same anecdote
+  const getRandomAnecdoteIndex = (selected) => {
+    const index = Math.floor(Math.random() * anecdotes.length);
+
+    // if randomed index is currently selected and is the last item of anecdotes
+    // previous anecdote will be selected
+    if (index === selected && selected === anecdotes.length - 1) {
+      return index - 1;
+    }
+
+    // if random index is currently selected, next anecdote will be selected
+    if (index === selected) {
+      return index + 1;
+    }
+
+    return index;
+  }
+
+  const handleNextAnecdote = () => setSelected(getRandomAnecdoteIndex(selected));
   const handleVote = () => setVotes(votes.with(selected, votes[selected] + 1));
 
   return (
