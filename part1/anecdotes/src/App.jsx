@@ -1,5 +1,31 @@
 import { useState } from 'react'
 
+const MostVotes = ({anecdotes, votes}) => {
+  const findIndexOfMostVote = () => {
+    let largestVote = 0;
+    let indexOfMostVote = 0;
+
+    votes.forEach((vote, index) => {
+      if (vote > largestVote) {
+        largestVote = vote;
+        indexOfMostVote = index;
+      }
+    });
+
+    return indexOfMostVote;
+  }
+
+  const indexOfMostVote = findIndexOfMostVote();
+
+  return (
+    <div>
+      <h2>Anecdote with most votes</h2>
+      <p>{anecdotes[indexOfMostVote]}</p>
+      <p>has {votes[indexOfMostVote]} votes</p>
+    </div>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -22,22 +48,6 @@ const App = () => {
     setVotes(newVotes);
   }
 
-  const findIndexOfMostVote = () => {
-    let largestVote = 0;
-    let indexOfMostVote = 0;
-
-    votes.forEach((vote, index) => {
-      if (vote > largestVote) {
-        largestVote = vote;
-        indexOfMostVote = index;
-      }
-    });
-
-    return indexOfMostVote;
-  }
-
-  const indexOfMostVote = findIndexOfMostVote();
-
   return (
     <div>
       <p>{anecdotes[selected]}</p>
@@ -46,9 +56,7 @@ const App = () => {
       <button onClick={handleVote}>Vote</button>
       <button onClick={handleNextAnecdote}>Next Anecdote</button>
 
-      <h2>Anecdote with most votes</h2>
-      <p>{anecdotes[indexOfMostVote]}</p>
-      <p>has {votes[indexOfMostVote]} votes</p>
+      <MostVotes anecdotes={anecdotes} votes={votes} />
     </div>
   )
 }
