@@ -32,6 +32,8 @@ const MostVotes = ({anecdotes, votes}) => {
   )
 }
 
+const Button = ({onClick, text}) => <button onClick={onClick}>{text}</button>
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -48,19 +50,15 @@ const App = () => {
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0));
 
   const handleNextAnecdote = () => setSelected(Math.floor(Math.random() * anecdotes.length));
-
-  const handleVote = () => {
-    const newVotes = votes.with(selected, votes[selected] + 1);
-    setVotes(newVotes);
-  }
+  const handleVote = () => setVotes(votes.with(selected, votes[selected] + 1));
 
   return (
     <div>
       <p>{anecdotes[selected]}</p>
       <VoteCount voteCount={votes[selected]} />
 
-      <button onClick={handleVote}>Vote</button>
-      <button onClick={handleNextAnecdote}>Next Anecdote</button>
+      <Button onClick={handleVote} text={'Vote'} />
+      <Button onClick={handleNextAnecdote} text={"Next Anecdote"} />
 
       <MostVotes anecdotes={anecdotes} votes={votes} />
     </div>
