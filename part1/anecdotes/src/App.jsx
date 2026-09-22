@@ -1,5 +1,11 @@
 import { useState } from 'react'
 
+const VoteCount = ({voteCount}) => {
+  return (
+    <p>has {voteCount} votes</p>
+  )
+}
+
 const MostVotes = ({anecdotes, votes}) => {
   const findIndexOfMostVote = () => {
     let largestVote = 0;
@@ -21,7 +27,7 @@ const MostVotes = ({anecdotes, votes}) => {
     <div>
       <h2>Anecdote with most votes</h2>
       <p>{anecdotes[indexOfMostVote]}</p>
-      <p>has {votes[indexOfMostVote]} votes</p>
+      <VoteCount voteCount={votes[indexOfMostVote]} />
     </div>
   )
 }
@@ -51,7 +57,7 @@ const App = () => {
   return (
     <div>
       <p>{anecdotes[selected]}</p>
-      <p>has {votes[selected]} votes</p>
+      <VoteCount voteCount={votes[selected]} />
 
       <button onClick={handleVote}>Vote</button>
       <button onClick={handleNextAnecdote}>Next Anecdote</button>
