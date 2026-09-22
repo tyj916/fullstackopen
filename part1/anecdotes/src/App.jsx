@@ -18,7 +18,7 @@ const App = () => {
 
   return (
     <div>
-      {anecdotes[selected]}
+      <p>{anecdotes[selected]}</p>
       <button onClick={handleNextAnecdote}>Next Anecdote</button>
     </div>
   )
