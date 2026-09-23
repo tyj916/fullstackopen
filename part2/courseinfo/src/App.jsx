@@ -1,8 +1,6 @@
 function Header({ course }) {
   return (
-    <header>
-      <h1>{course}</h1>
-    </header>
+    <h2>{course}</h2>
   );
 }
 
@@ -94,6 +92,10 @@ function App() {
 
   return (
     <div>
+      <header>
+        <h1>Web Development Curriculum</h1>
+      </header>
+      
       {courses.map(course => {
         return <Course key={course.id} course={course} />
       })}
