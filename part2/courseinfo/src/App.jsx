@@ -14,7 +14,7 @@ function Part({ name, exercises }) {
 
 function Content({ parts }) {
   return (
-    <>
+    <div>
       {parts.map((part) => {
         return <Part 
           key={part.name} 
@@ -22,7 +22,7 @@ function Content({ parts }) {
           exercises={part.exercises} 
         />
       })}
-    </>
+    </div>
   )
 }
 
@@ -32,7 +32,7 @@ function Total({ parts }) {
   }, 0);
 
   return (
-    <p>Number of exercises {totalExercises}</p>
+    <p>Total of {totalExercises} exercises</p>
   )
 }
 
