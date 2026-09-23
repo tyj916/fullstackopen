@@ -17,7 +17,7 @@ function Content({ parts }) {
     <div>
       {parts.map((part) => {
         return <Part 
-          key={part.name} 
+          key={part.id} 
           name={part.name} 
           exercises={part.exercises} 
         />
