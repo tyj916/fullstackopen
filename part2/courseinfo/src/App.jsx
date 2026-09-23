@@ -6,9 +6,9 @@ function Header({ course }) {
   );
 }
 
-function Part({ title, exercises }) {
+function Part({ name, exercises }) {
   return (
-    <p>{title} {exercises}</p>
+    <p>{name} {exercises}</p>
   )
 }
 
@@ -17,8 +17,8 @@ function Content({ parts }) {
     <>
       {parts.map((part) => {
         return <Part 
-          key={part.title} 
-          title={part.title} 
+          key={part.name} 
+          name={part.name} 
           exercises={part.exercises} 
         />
       })}
@@ -38,12 +38,25 @@ function Total({ parts }) {
 
 function App() {
   const course = {
+    id: 1,
     name: 'Half Stack application development',
     parts: [
-      { title: 'Fundamentals of React', exercises: 10 },
-      { title: 'Using props to pass data', exercises: 7 },
-      { title: 'State of a component', exercises: 14 },
-    ],
+      {
+        name: 'Fundamentals of React',
+        exercises: 10,
+        id: 1
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7,
+        id: 2
+      },
+      {
+        name: 'State of a component',
+        exercises: 14,
+        id: 3
+      }
+    ]
   };
 
   return (
