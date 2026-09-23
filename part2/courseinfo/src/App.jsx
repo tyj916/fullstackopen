@@ -36,6 +36,16 @@ function Total({ parts }) {
   )
 }
 
+function Course({course}) {
+  return (
+    <div>
+      <Header course={course.name} />
+      <Content parts={course.parts} />
+      <Total parts={course.parts} />
+    </div>
+  )
+}
+
 function App() {
   const course = {
     id: 1,
@@ -59,13 +69,7 @@ function App() {
     ]
   };
 
-  return (
-    <div>
-      <Header course={course.name} />
-      <Content parts={course.parts} />
-      <Total parts={course.parts} />
-    </div>
-  )
+  return <Course course={course} />
 }
 
 export default App
