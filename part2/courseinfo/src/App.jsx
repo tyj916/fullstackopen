@@ -30,7 +30,7 @@ function Total({ parts }) {
   }, 0);
 
   return (
-    <p>Total of {totalExercises} exercises</p>
+    <p><b>Total of {totalExercises} exercises</b></p>
   )
 }
 
@@ -95,7 +95,7 @@ function App() {
       <header>
         <h1>Web Development Curriculum</h1>
       </header>
-      
+
       {courses.map(course => {
         return <Course key={course.id} course={course} />
       })}
