@@ -10,11 +10,12 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <form>
+        <p>
+          <label htmlFor="name">Name: </label>
+          <input id='name' />
+        </p>
         <div>
-          name: <input />
-        </div>
-        <div>
-          <button type="submit">add</button>
+          <button type="submit">Add</button>
         </div>
       </form>
       <h2>Numbers</h2>
