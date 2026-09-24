@@ -33,19 +33,22 @@ const NewPersonForm = ({persons, setPersons}) => {
   }
 
   return (
-    <form>
-      <p>
-        <label htmlFor="name">Name: </label>
-        <input id='name' type='text' onChange={handleChangeName} value={newName} />
-      </p>
-      <p>
-        <label htmlFor="number">Number: </label>
-        <input id='number' type="text" onChange={handleChangeNumber} value={newNumber} />
-      </p>
-      <div>
-        <button type="submit" onClick={handleAddPerson}>Add</button>
-      </div>
-    </form>
+    <div>
+      <h2>Add New Person</h2>
+      <form>
+        <p>
+          <label htmlFor="name">Name: </label>
+          <input id='name' type='text' onChange={handleChangeName} value={newName} />
+        </p>
+        <p>
+          <label htmlFor="number">Number: </label>
+          <input id='number' type="text" onChange={handleChangeNumber} value={newNumber} />
+        </p>
+        <div>
+          <button type="submit" onClick={handleAddPerson}>Add</button>
+        </div>
+      </form>
+    </div>
   )
 }
 
