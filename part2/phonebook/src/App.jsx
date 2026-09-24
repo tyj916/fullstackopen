@@ -89,7 +89,7 @@ const App = () => {
   ]);
   const [search, setSearch] = useState('');
   const personsToShow = search 
-    ? persons.filter((person) => person.name.includes(search)) 
+    ? persons.filter((person) => person.name.toLowerCase().includes(search.toLowerCase())) 
     : persons;
 
   return (
