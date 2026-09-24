@@ -66,17 +66,35 @@ const Persons = ({persons}) => {
   )
 }
 
+const Search = ({search, setSearch}) => {
+  const handleChangeSearch = (e) => {
+    setSearch(e.target.value);
+  }
+
+  return (
+    <div>
+      <label htmlFor="search">Filter shown with </label>
+      <input id='search' type="text" onChange={handleChangeSearch} value={search} />
+    </div>
+  )
+}
+
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-1234567' }
   ]) 
+  const [search, setSearch] = useState('');
+  const personsToShow = search 
+    ? persons.filter((person) => person.name.includes(search)) 
+    : persons;
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <Search search={search} setSearch={setSearch} />
       <NewPersonForm persons={persons} setPersons={setPersons} />
       <h2>Numbers</h2>
-      <Persons persons={persons} />
+      <Persons persons={personsToShow} />
     </div>
   )
 }
