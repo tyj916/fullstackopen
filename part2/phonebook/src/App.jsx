@@ -67,7 +67,7 @@ const Persons = ({persons}) => {
   )
 }
 
-const Search = ({search, setSearch}) => {
+const SearchByName = ({search, setSearch}) => {
   const handleChangeSearch = (e) => {
     setSearch(e.target.value);
   }
@@ -95,7 +95,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Search search={search} setSearch={setSearch} />
+      <SearchByName search={search} setSearch={setSearch} />
       <NewPersonForm persons={persons} setPersons={setPersons} />
       <h2>Numbers</h2>
       <Persons persons={personsToShow} />
