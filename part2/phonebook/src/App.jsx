@@ -19,7 +19,11 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      ...
+      <div>
+        {persons.map((person) => {
+          return <p key={person.name}>{person.name}</p>
+        })}
+      </div>
     </div>
   )
 }
