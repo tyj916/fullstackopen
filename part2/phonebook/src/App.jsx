@@ -19,6 +19,12 @@ const App = () => {
   const handleAddPerson = (e) => {
     e.preventDefault();
 
+    const isNameRepeated = persons.some(person => person.name === newName);
+
+    if (isNameRepeated) {
+      return alert(`${newName} is already added to phonebook`);
+    }
+
     const newPerson = {
       name: newName
     };
