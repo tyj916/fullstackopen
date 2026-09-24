@@ -24,6 +24,7 @@ const NewPersonForm = ({persons, setPersons}) => {
     const newPerson = {
       name: newName,
       number: newNumber,
+      id: persons.length + 1,
     };
 
     setPersons(persons.concat(newPerson));
@@ -60,7 +61,7 @@ const Persons = ({persons}) => {
   return (
     <div>
       {persons.map((person) => {
-        return <Person key={person.name} person={person} />
+        return <Person key={person.id} person={person} />
       })}
     </div>
   )
@@ -81,8 +82,11 @@ const Search = ({search, setSearch}) => {
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-1234567' }
-  ]) 
+    { name: 'Arto Hellas', number: '040-123456', id: 1 },
+    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
+    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
+    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
+  ]);
   const [search, setSearch] = useState('');
   const personsToShow = search 
     ? persons.filter((person) => person.name.includes(search)) 
