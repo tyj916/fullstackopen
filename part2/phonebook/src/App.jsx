@@ -17,13 +17,17 @@ const App = () => {
     setNewName('');
   }
 
+  const handleChangeName = (e) => {
+    setNewName(e.target.value);
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
       <form>
         <p>
           <label htmlFor="name">Name: </label>
-          <input id='name' />
+          <input id='name' type='text' onChange={handleChangeName} value={newName} />
         </p>
         <div>
           <button type="submit" onClick={handleAddPerson}>Add</button>
