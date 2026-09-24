@@ -1,21 +1,12 @@
 import { useState } from 'react'
 
-const Persons = ({persons}) => {
-  return (
-    <div>
-      {persons.map((person) => {
-        return <p key={person.name}>{person.name}</p>
-      })}
-    </div>
-  )
-}
+const NewPersonForm = ({persons, setPersons}) => {
+  const [newName, setNewName] = useState('');
 
-const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
-  ]) 
-  const [newName, setNewName] = useState('')
-
+  const handleChangeName = (e) => {
+    setNewName(e.target.value);
+  }
+  
   const handleAddPerson = (e) => {
     e.preventDefault();
 
@@ -33,22 +24,38 @@ const App = () => {
     setNewName('');
   }
 
-  const handleChangeName = (e) => {
-    setNewName(e.target.value);
-  }
+  return (
+    <form>
+      <p>
+        <label htmlFor="name">Name: </label>
+        <input id='name' type='text' onChange={handleChangeName} value={newName} />
+      </p>
+      <div>
+        <button type="submit" onClick={handleAddPerson}>Add</button>
+      </div>
+    </form>
+  )
+}
+
+const Persons = ({persons}) => {
+  return (
+    <div>
+      {persons.map((person) => {
+        return <p key={person.name}>{person.name}</p>
+      })}
+    </div>
+  )
+}
+
+const App = () => {
+  const [persons, setPersons] = useState([
+    { name: 'Arto Hellas' }
+  ]) 
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <form>
-        <p>
-          <label htmlFor="name">Name: </label>
-          <input id='name' type='text' onChange={handleChangeName} value={newName} />
-        </p>
-        <div>
-          <button type="submit" onClick={handleAddPerson}>Add</button>
-        </div>
-      </form>
+      <NewPersonForm persons={persons} setPersons={setPersons} />
       <h2>Numbers</h2>
       <Persons persons={persons} />
     </div>
