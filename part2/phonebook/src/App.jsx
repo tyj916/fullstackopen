@@ -48,11 +48,19 @@ const NewPersonForm = ({persons, setPersons}) => {
   )
 }
 
+const Person = ({person}) => {
+  return (
+    <div>
+      <p>{person.name} {person.number}</p>
+    </div>
+  )
+}
+
 const Persons = ({persons}) => {
   return (
     <div>
       {persons.map((person) => {
-        return <p key={person.name}>{person.name} {person.number}</p>
+        return <Person key={person.name} person={person} />
       })}
     </div>
   )
