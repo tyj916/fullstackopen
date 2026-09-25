@@ -29,9 +29,13 @@ const NewPersonForm = ({persons, setPersons}) => {
       id: persons.length + 1,
     };
 
-    setPersons(persons.concat(newPerson));
-    setNewName('');
-    setNewNumber('');
+    personService
+      .create(newPerson)
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson));
+        setNewName('');
+        setNewNumber('');
+      });
   }
 
   return (
