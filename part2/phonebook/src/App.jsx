@@ -31,6 +31,8 @@ const NewPersonForm = ({persons, setPersons}) => {
           .update(currentPerson.id, updatedPerson)
           .then(returnedPerson => {
             setPersons(persons.map(person => person.id === returnedPerson.id ? returnedPerson : person));
+            setNewName('');
+            setNewNumber('');
           });
       }
 
