@@ -58,9 +58,17 @@ const NewPersonForm = ({persons, setPersons}) => {
   )
 }
 
-const Person = ({person}) => {
+const Person = ({persons, person, setPersons}) => {
   const handleDeletePerson = () => {
-    confirm(`Delete ${person.name}?`);
+    const isConfirmed = confirm(`Delete ${person.name}?`);
+
+    if (isConfirmed) {
+      personService
+        .remove(person.id)
+        .then(deletedPerson => {
+          setPersons(persons.filter(person => person.id !== deletedPerson.id));
+        });
+    }
   }
 
   return (
@@ -76,11 +84,18 @@ const Person = ({person}) => {
   )
 }
 
-const Persons = ({persons}) => {
+const Persons = ({persons, setPersons}) => {
   return (
     <div>
       {persons.map((person) => {
-        return <Person key={person.id} person={person} />
+        return (
+          <Person 
+            key={person.id} 
+            persons={persons} 
+            person={person} 
+            setPersons={setPersons} 
+          />
+        )
       })}
     </div>
   )
@@ -108,7 +123,7 @@ const App = () => {
       <Search search={search} setSearch={setSearch} />
       <NewPersonForm persons={persons} setPersons={setPersons} />
       <h2>Numbers</h2>
-      <Persons persons={personsToShow} />
+      <Persons persons={personsToShow} setPersons={setPersons} />
     </div>
   )
 }
