@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import personService from './services/person';
+import Search from './components/search';
 
 const NewPersonForm = ({persons, setPersons}) => {
   const [newName, setNewName] = useState('');
@@ -71,19 +72,6 @@ const Persons = ({persons}) => {
   )
 }
 
-const SearchByName = ({search, setSearch}) => {
-  const handleChangeSearch = (e) => {
-    setSearch(e.target.value);
-  }
-
-  return (
-    <div>
-      <label htmlFor="search">Filter shown with </label>
-      <input id='search' type="text" onChange={handleChangeSearch} value={search} />
-    </div>
-  )
-}
-
 const App = () => {
   const [persons, setPersons] = useState([]);
 
@@ -103,7 +91,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <SearchByName search={search} setSearch={setSearch} />
+      <Search search={search} setSearch={setSearch} />
       <NewPersonForm persons={persons} setPersons={setPersons} />
       <h2>Numbers</h2>
       <Persons persons={personsToShow} />
