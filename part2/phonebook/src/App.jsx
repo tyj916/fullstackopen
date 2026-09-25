@@ -19,6 +19,24 @@ const NewPersonForm = ({persons, setPersons}) => {
 
     const isNameRepeated = persons.some(person => person.name === newName);
 
+    // if name already exists, ask if the user wants to update the phone number
+    if (isNameRepeated && newNumber) {
+      const isConfirmed = confirm(`${newName} is already added to phonebook, replace the old number with a new one?`);
+      
+      if (isConfirmed) {
+        const currentPerson = persons.find(person => person.name === newName);
+        const updatedPerson = { ...currentPerson, number: newNumber };
+
+        personService
+          .update(currentPerson.id, updatedPerson)
+          .then(returnedPerson => {
+            setPersons(persons.map(person => person.id === returnedPerson.id ? returnedPerson : person));
+          });
+      }
+
+      return;
+    }
+
     if (isNameRepeated) {
       return alert(`${newName} is already added to phonebook`);
     }
