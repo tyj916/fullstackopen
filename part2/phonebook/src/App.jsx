@@ -59,9 +59,19 @@ const NewPersonForm = ({persons, setPersons}) => {
 }
 
 const Person = ({person}) => {
+  const handleDeletePerson = () => {
+    confirm(`Delete ${person.name}?`);
+  }
+
   return (
     <div>
-      <p>{person.name} {person.number}</p>
+      <p>
+        {person.name} {person.number}  
+        <button 
+          type='button' 
+          onClick={handleDeletePerson}
+        >Delete</button>
+      </p>
     </div>
   )
 }
