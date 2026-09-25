@@ -22,8 +22,13 @@
     },
     {
       "name": "Test Edit",
-      "number": "123456",
+      "number": "123",
       "id": "buQwSew4oJQ"
+    },
+    {
+      "name": "Test Add New",
+      "number": "123145123",
+      "id": "VdyDFjS1JUI"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
