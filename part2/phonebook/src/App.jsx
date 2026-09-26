@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import personService from './services/person';
 import Search from './components/Search';
 import PersonForm from './components/PersonForm';
+import Notification from './components/Notification';
 
 const Person = ({persons, person, setPersons}) => {
   const handleDeletePerson = () => {
@@ -48,6 +49,7 @@ const Persons = ({persons, setPersons}) => {
 
 const App = () => {
   const [persons, setPersons] = useState([]);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     personService
@@ -65,6 +67,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} />
       <Search search={search} setSearch={setSearch} />
       <PersonForm persons={persons} setPersons={setPersons} />
       <h2>Numbers</h2>
