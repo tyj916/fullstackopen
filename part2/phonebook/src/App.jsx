@@ -69,7 +69,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <Notification message={message} />
       <Search search={search} setSearch={setSearch} />
-      <PersonForm persons={persons} setPersons={setPersons} />
+      <PersonForm persons={persons} setPersons={setPersons} setMessage={setMessage} />
       <h2>Numbers</h2>
       <Persons persons={personsToShow} setPersons={setPersons} />
     </div>
