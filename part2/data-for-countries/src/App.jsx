@@ -3,8 +3,17 @@ import Countries from "./components/Countries";
 
 const App = () => {
   const [countries, setCountries] = useState([
-    { name: 'a', capital: 'abc' },
-    { name: 'b', capital: 'def' },
+    { name: 'abc', capital: 'abc' },
+    { name: 'bcd', capital: 'bcd' },
+    { name: 'cde', capital: 'cde' },
+    { name: 'def', capital: 'def' },
+    { name: 'efg', capital: 'efg' },
+    { name: 'fgh', capital: 'fgh' },
+    { name: 'ghi', capital: 'ghi' },
+    { name: 'hij', capital: 'hij' },
+    { name: 'ijk', capital: 'ijk' },
+    { name: 'jkl', capital: 'jkl' },
+    { name: 'klm', capital: 'klm' },
   ]);
   const [search, setSearch] = useState('');
 
