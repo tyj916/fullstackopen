@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import personService from './services/person';
-import Search from './components/search';
-import PersonForm from './components/personForm';
+import Search from './components/Search';
+import PersonForm from './components/PersonForm';
 
 const Person = ({persons, person, setPersons}) => {
   const handleDeletePerson = () => {
