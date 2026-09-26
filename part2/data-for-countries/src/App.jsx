@@ -12,12 +12,16 @@ const App = () => {
     setSearch(e.target.value);
   } 
 
+  const countriesToShow = search 
+    ? countries.filter(country => country.name.toLowerCase() === search.toLowerCase())
+    : countries;
+
   return (
     <div>
       <h1>Data for countries</h1>
       <label htmlFor="search">Find countries: </label>
       <input id='search' type="text" onChange={handleChangeSearch} value={search} />
-      <Countries countries={countries} />
+      <Countries countries={countriesToShow} />
     </div>
   )
 }
