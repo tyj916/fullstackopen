@@ -29,11 +29,6 @@
       "name": "Test Add New",
       "number": "123145123",
       "id": "VdyDFjS1JUI"
-    },
-    {
-      "name": "Test Notification",
-      "number": "1234",
-      "id": "qx6qaVDP9rI"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

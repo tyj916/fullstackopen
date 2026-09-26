@@ -1,7 +1,7 @@
 import { useState } from "react";
 import personService from '../services/person';
 
-const PersonForm = ({persons, setPersons, setMessage}) => {
+const PersonForm = ({persons, setPersons, setNotification}) => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
 
@@ -11,13 +11,6 @@ const PersonForm = ({persons, setPersons, setMessage}) => {
 
   const handleChangeNumber = (e) => {
     setNewNumber(e.target.value);
-  }
-
-  const setNotification = (message) => {
-    setMessage(message);
-    setTimeout(() => {
-      setMessage('');
-    }, 5000);
   }
 
   const handleAddPerson = (e) => {

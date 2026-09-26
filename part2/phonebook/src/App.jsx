@@ -4,7 +4,7 @@ import Search from './components/Search';
 import PersonForm from './components/PersonForm';
 import Notification from './components/Notification';
 
-const Person = ({persons, person, setPersons}) => {
+const Person = ({persons, person, setPersons, setNotification}) => {
   const handleDeletePerson = () => {
     const isConfirmed = confirm(`Delete ${person.name}?`);
 
@@ -13,6 +13,7 @@ const Person = ({persons, person, setPersons}) => {
         .remove(person.id)
         .then(deletedPerson => {
           setPersons(persons.filter(person => person.id !== deletedPerson.id));
+          setNotification(`Deleted ${deletedPerson.name}`);
         });
     }
   }
@@ -30,7 +31,7 @@ const Person = ({persons, person, setPersons}) => {
   )
 }
 
-const Persons = ({persons, setPersons}) => {
+const Persons = ({persons, setPersons, setNotification}) => {
   return (
     <div>
       {persons.map((person) => {
@@ -40,6 +41,7 @@ const Persons = ({persons, setPersons}) => {
             persons={persons} 
             person={person} 
             setPersons={setPersons} 
+            setNotification={setNotification}
           />
         )
       })}
@@ -64,14 +66,21 @@ const App = () => {
     ? persons.filter((person) => person.name.toLowerCase().includes(search.toLowerCase())) 
     : persons;
 
+  const setNotification = (message) => {
+    setMessage(message);
+    setTimeout(() => {
+      setMessage('');
+    }, 5000);
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
       <Notification message={message} />
       <Search search={search} setSearch={setSearch} />
-      <PersonForm persons={persons} setPersons={setPersons} setMessage={setMessage} />
+      <PersonForm persons={persons} setPersons={setPersons} setNotification={setNotification} />
       <h2>Numbers</h2>
-      <Persons persons={personsToShow} setPersons={setPersons} />
+      <Persons persons={personsToShow} setPersons={setPersons} setNotification={setNotification} />
     </div>
   )
 }
