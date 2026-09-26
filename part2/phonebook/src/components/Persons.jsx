@@ -1,6 +1,6 @@
 import personService from '../services/person';
 
-const Person = ({persons, person, setPersons, setNotification}) => {
+const Person = ({person, persons, setPersons, setNotification}) => {
   const handleDeletePerson = () => {
     const isConfirmed = confirm(`Delete ${person.name}?`);
 
@@ -27,15 +27,15 @@ const Person = ({persons, person, setPersons, setNotification}) => {
   )
 }
 
-const Persons = ({persons, setPersons, setNotification}) => {
+const Persons = ({personsToShow, persons, setPersons, setNotification}) => {
   return (
     <div>
-      {persons.map((person) => {
+      {personsToShow.map((person) => {
         return (
           <Person 
             key={person.id} 
-            persons={persons} 
             person={person} 
+            persons={persons} 
             setPersons={setPersons} 
             setNotification={setNotification}
           />

@@ -41,7 +41,12 @@ const App = () => {
       <Search search={search} setSearch={setSearch} />
       <PersonForm persons={persons} setPersons={setPersons} setNotification={setNotification} />
       <h2>Numbers</h2>
-      <Persons persons={personsToShow} setPersons={setPersons} setNotification={setNotification} />
+      <Persons 
+        personsToShow={personsToShow} 
+        persons={persons}
+        setPersons={setPersons} 
+        setNotification={setNotification} 
+      />
     </div>
   )
 }
