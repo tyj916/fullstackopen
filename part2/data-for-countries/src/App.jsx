@@ -22,7 +22,7 @@ const App = () => {
   } 
 
   const countriesToShow = search 
-    ? countries.filter(country => country.name.toLowerCase() === search.toLowerCase())
+    ? countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase()))
     : countries;
 
   return (
