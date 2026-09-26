@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import personService from './services/person';
 import Search from './components/Search';
 import PersonForm from './components/PersonForm';
@@ -66,9 +66,14 @@ const App = () => {
     ? persons.filter((person) => person.name.toLowerCase().includes(search.toLowerCase())) 
     : persons;
 
+  const timerRef = useRef(null);
+
   const setNotification = (message) => {
     setMessage(message);
-    setTimeout(() => {
+
+    clearTimeout(timerRef.current);
+
+    timerRef.current = setTimeout(() => {
       setMessage('');
     }, 5000);
   }
