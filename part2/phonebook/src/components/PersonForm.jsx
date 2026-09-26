@@ -30,13 +30,15 @@ const PersonForm = ({persons, setPersons, setNotification}) => {
           .update(currentPerson.id, updatedPerson)
           .then(returnedPerson => {
             setPersons(persons.map(person => person.id === returnedPerson.id ? returnedPerson : person));
-            setNewName('');
-            setNewNumber('');
             setNotification(`Updated ${returnedPerson.name} number to ${returnedPerson.number}`);
           })
           .catch(err => {
             setNotification(`Information of ${currentPerson.name} has already been removed from server`, 'error');
             setPersons(persons.filter(person => person.id !== currentPerson.id));
+          })
+          .finally(() => {
+            setNewName('');
+            setNewNumber('');
           });
       }
 
