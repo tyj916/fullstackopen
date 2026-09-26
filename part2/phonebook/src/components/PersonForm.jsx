@@ -33,6 +33,9 @@ const PersonForm = ({persons, setPersons, setMessage}) => {
             setNewName('');
             setNewNumber('');
             setMessage(`Updated ${returnedPerson.name} number to ${returnedPerson.number}`);
+            setTimeout(() => {
+              setMessage('');
+            }, 5000);
           });
       }
 
@@ -56,6 +59,9 @@ const PersonForm = ({persons, setPersons, setMessage}) => {
         setNewName('');
         setNewNumber('');
         setMessage(`Added ${returnedPerson.name}`);
+        setTimeout(() => {
+          setMessage('');
+        }, 5000);
       });
   }
 
