@@ -12,7 +12,7 @@ const Person = ({person, persons, setPersons, setNotification}) => {
           setNotification(`Deleted ${deletedPerson.name}`);
         })
         .catch(err => {
-          setNotification(`Information of ${person.name} has already been removed from server`);
+          setNotification(`Information of ${person.name} has already been removed from server`, 'error');
           setPersons(persons.filter(p => p.id !== person.id));
         });
     }

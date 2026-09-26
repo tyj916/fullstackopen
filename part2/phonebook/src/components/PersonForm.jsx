@@ -35,7 +35,7 @@ const PersonForm = ({persons, setPersons, setNotification}) => {
             setNotification(`Updated ${returnedPerson.name} number to ${returnedPerson.number}`);
           })
           .catch(err => {
-            setNotification(`Information of ${currentPerson.name} has already been removed from server`);
+            setNotification(`Information of ${currentPerson.name} has already been removed from server`, 'error');
             setPersons(persons.filter(person => person.id !== currentPerson.id));
           });
       }

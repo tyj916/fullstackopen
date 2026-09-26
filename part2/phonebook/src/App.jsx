@@ -7,7 +7,7 @@ import Notification from './components/Notification';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     personService
@@ -24,13 +24,16 @@ const App = () => {
 
   const timerRef = useRef(null);
 
-  const setNotification = (message) => {
-    setMessage(message);
+  const setNotification = (content, type = 'notification') => {
+    setMessage({
+      content,
+      type,
+    });
 
     clearTimeout(timerRef.current);
 
     timerRef.current = setTimeout(() => {
-      setMessage('');
+      setMessage(null);
     }, 5000);
   }
 

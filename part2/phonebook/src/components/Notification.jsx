@@ -3,9 +3,11 @@ const Notification = ({message}) => {
     return null;
   }
 
+  const className = message.type === 'error' ? 'notification error' : 'notification';
+
   return (
-    <div className='notification'>
-      <p>{message}</p>
+    <div className={className}>
+      <p>{message.content}</p>
     </div>
   )
 }
