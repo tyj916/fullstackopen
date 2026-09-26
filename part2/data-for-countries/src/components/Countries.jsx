@@ -1,6 +1,5 @@
 const Country = ({country}) => {
   const languages = Object.entries(country.languages);
-  console.log(languages);
 
   return (
     <div>
@@ -14,6 +13,9 @@ const Country = ({country}) => {
           return <li key={key}>{language}</li>
         })}
       </ul>
+      <div>
+        <img src={country.flags.png} alt={country.flags.alt} />
+      </div>
     </div>
   )
 }
