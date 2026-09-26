@@ -13,6 +13,13 @@ const PersonForm = ({persons, setPersons, setMessage}) => {
     setNewNumber(e.target.value);
   }
 
+  const setNotification = (message) => {
+    setMessage(message);
+    setTimeout(() => {
+      setMessage('');
+    }, 5000);
+  }
+
   const handleAddPerson = (e) => {
     e.preventDefault();
 
@@ -32,10 +39,7 @@ const PersonForm = ({persons, setPersons, setMessage}) => {
             setPersons(persons.map(person => person.id === returnedPerson.id ? returnedPerson : person));
             setNewName('');
             setNewNumber('');
-            setMessage(`Updated ${returnedPerson.name} number to ${returnedPerson.number}`);
-            setTimeout(() => {
-              setMessage('');
-            }, 5000);
+            setNotification(`Updated ${returnedPerson.name} number to ${returnedPerson.number}`);
           });
       }
 
@@ -58,10 +62,7 @@ const PersonForm = ({persons, setPersons, setMessage}) => {
         setPersons(persons.concat(returnedPerson));
         setNewName('');
         setNewNumber('');
-        setMessage(`Added ${returnedPerson.name}`);
-        setTimeout(() => {
-          setMessage('');
-        }, 5000);
+        setNotification(`Added ${returnedPerson.name}`);
       });
   }
 
