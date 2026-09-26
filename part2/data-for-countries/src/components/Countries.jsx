@@ -1,8 +1,8 @@
 const Country = ({country}) => {
   return (
     <div>
-      <h1>{country.name}</h1>
-      <p>Capital: {country.capital}</p>
+      <h1>{country.name.common}</h1>
+      <p>Capital: {country.capital[0]}</p>
     </div>
   )
 }
@@ -19,7 +19,7 @@ const Countries = ({countries}) => {
   return (
     <div>
       {countries.map(country => {
-        return <p>{country.name}</p>
+        return <p>{country.name.common}</p>
       })}
     </div>
   )
