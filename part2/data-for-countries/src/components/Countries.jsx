@@ -32,7 +32,7 @@ const Countries = ({countries}) => {
   return (
     <div>
       {countries.map(country => {
-        return <p>{country.name.common}</p>
+        return <p key={country.cca2}>{country.name.common}</p>
       })}
     </div>
   )
