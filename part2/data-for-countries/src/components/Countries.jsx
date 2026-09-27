@@ -1,5 +1,18 @@
+import { useEffect } from "react";
+import axios from "axios";
+const weatherKey = import.meta.env.VITE_WEATHER_KEY;
+
 const Country = ({country}) => {
   const languages = Object.entries(country.languages);
+  const [lat, lon] = country.latlng;
+
+  useEffect(() => {
+    axios
+      .get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherKey}`)
+      .then(response => {
+        console.log(response.data);
+      })
+  }, [country]);
 
   return (
     <div>
@@ -15,6 +28,9 @@ const Country = ({country}) => {
       </ul>
       <div>
         <img src={country.flags.png} alt={country.flags.alt} />
+      </div>
+      <div>
+        <h2>Weather in {country.capital[0]}</h2>
       </div>
     </div>
   )
