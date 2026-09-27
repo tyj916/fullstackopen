@@ -38,8 +38,10 @@ const Countries = ({countries, setSearch}) => {
 
         return (
           <li key={country.cca2}>
-            <p>{country.name.common}</p>
-            <button type="button" onClick={handleShow}>Show</button>
+            <p>
+              {country.name.common}
+              <button type="button" onClick={handleShow}>Show</button>
+            </p>
           </li>
         )
       })}
