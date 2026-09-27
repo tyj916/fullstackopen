@@ -20,7 +20,7 @@ const Country = ({country}) => {
   )
 }
 
-const Countries = ({countries}) => {
+const Countries = ({countries, setSearch}) => {
   if (countries.length > 10) {
     return <p>Too many matches, specify another filter</p>
   }
@@ -30,11 +30,20 @@ const Countries = ({countries}) => {
   }
 
   return (
-    <div>
+    <ul>
       {countries.map(country => {
-        return <p key={country.cca2}>{country.name.common}</p>
+        const handleShow = () => {
+          setSearch(country.name.common);
+        }
+
+        return (
+          <li key={country.cca2}>
+            <p>{country.name.common}</p>
+            <button type="button" onClick={handleShow}>Show</button>
+          </li>
+        )
       })}
-    </div>
+    </ul>
   )
 }
 

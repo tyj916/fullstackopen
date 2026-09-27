@@ -23,7 +23,7 @@ const App = () => {
     <div>
       <h1>Data for countries</h1>
       <Search search={search} setSearch={setSearch} />
-      <Countries countries={countriesToShow} />
+      <Countries countries={countriesToShow} setSearch={setSearch} />
     </div>
   )
 }
