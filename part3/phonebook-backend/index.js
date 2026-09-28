@@ -54,16 +54,36 @@ app.get('/api/persons/:id', (req, res) => {
 });
 
 app.post('/api/persons', (req, res) => {
-  const person = req.body;
+  const body = req.body;
 
-  if (!person.name) {
+  if (!body.name) {
     return res.status(400).json({
       error: 'missing name'
     });
   }
 
-  person.id = Math.random().toString(36).substring(2, 11);
+  if (!body.number) {
+    return res.status(400).json({
+      error: 'missing number'
+    });
+  }
+
+  const isNameInPhonebook = persons.some(person => person.name === body.name);
+
+  if (isNameInPhonebook) {
+    return res.status(400).json({
+      error: 'name already exists in the phonebook'
+    });
+  }
+
+  const person = {
+    id: Math.random().toString(36).substring(2, 11),
+    name: body.name,
+    number: body.number
+  }
+
   persons = persons.concat(person);
+  
   res.json(person);
 });
 
