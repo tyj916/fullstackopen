@@ -52,11 +52,13 @@ app.get('/api/persons', (req, res) => {
 });
 
 app.get('/info', (req, res) => {
-  res.send(`
-    Phonebook has info for ${persons.length} people
-    <br>
-    ${new Date()}
-  `);
+  Person.countDocuments({}).then(personsCount => {
+    res.send(`
+      Phonebook has info for ${personsCount} people
+      <br>
+      ${new Date()}
+    `);
+  });
 });
 
 app.get('/api/persons/:id', (req, res) => {
