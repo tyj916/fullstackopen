@@ -62,44 +62,30 @@ app.get('/info', (req, res) => {
 });
 
 app.get('/api/persons/:id', (req, res) => {
-  console.log(req.params.id);
   Person.findById(req.params.id).then(person => {
     res.json(person);
   });
 });
 
 app.post('/api/persons', (req, res) => {
-  const body = req.body;
+  const {name, number} = req.body;
 
-  if (!body.name) {
-    return res.status(400).json({
-      error: 'missing name'
-    });
+  if (!name) {
+    return res.status(400).json({ error: 'missing name' });
   }
 
-  if (!body.number) {
-    return res.status(400).json({
-      error: 'missing number'
-    });
+  if (!number) {
+    return res.status(400).json({ error: 'missing number' });
   }
 
-  const isNameInPhonebook = persons.some(person => person.name === body.name);
+  const person = new Person({
+    name,
+    number
+  });
 
-  if (isNameInPhonebook) {
-    return res.status(400).json({
-      error: 'name already exists in the phonebook'
-    });
-  }
-
-  const person = {
-    id: Math.random().toString(36).substring(2, 11),
-    name: body.name,
-    number: body.number
-  }
-
-  persons = persons.concat(person);
-  
-  res.json(person);
+  person.save().then(savedPerson => {
+    res.json(savedPerson);
+  });
 });
 
 app.delete('/api/persons/:id', (req, res) => {
