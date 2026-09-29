@@ -62,14 +62,10 @@ app.get('/info', (req, res) => {
 });
 
 app.get('/api/persons/:id', (req, res) => {
-  const id = req.params.id;
-  const person = persons.find(person => person.id === id);
-
-  if (!person) {
-    res.status(404).end();
-  } else {
+  console.log(req.params.id);
+  Person.findById(req.params.id).then(person => {
     res.json(person);
-  }
+  });
 });
 
 app.post('/api/persons', (req, res) => {
