@@ -20,10 +20,16 @@ const personSchema = new mongoose.Schema({
 
 const Person = mongoose.model('Person', personSchema);
 
-new Person({
-  name: "Arto Hellas", 
-  number: "040-123456",
-}).save().then(result => {
-  console.log('person saved!');
-  mongoose.connection.close();
-});
+if (process.argv.length > 3) {
+  const [name, number] = process.argv.slice(3);
+
+  const person = new Person({
+    name,
+    number
+  });
+
+  person.save().then(result => {
+    console.log(`Added ${name} number ${number} to phonebook`);
+    mongoose.connection.close();
+  });
+}
