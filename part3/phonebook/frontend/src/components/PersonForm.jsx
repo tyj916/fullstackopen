@@ -31,6 +31,8 @@ const PersonForm = ({persons, setPersons, setNotification}) => {
           .then(returnedPerson => {
             setPersons(persons.map(person => person.id === returnedPerson.id ? returnedPerson : person));
             setNotification(`Updated ${returnedPerson.name} number to ${returnedPerson.number}`);
+            setNewName('');
+            setNewNumber('');
           })
           .catch(error => {
             if (error.response.status === 404) {
@@ -40,10 +42,6 @@ const PersonForm = ({persons, setPersons, setNotification}) => {
             }
 
             setNotification(error.response.data.error, 'error');
-          })
-          .finally(() => {
-            setNewName('');
-            setNewNumber('');
           });
       }
 
