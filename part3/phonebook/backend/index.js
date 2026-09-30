@@ -70,9 +70,14 @@ app.put('/api/persons/:id', (req, res) => {
 });
 
 app.delete('/api/persons/:id', (req, res) => {
-  Person.findByIdAndDelete(req.params.id).then(deletedPerson => {
-    res.json(deletedPerson);
-  });
+  Person.findByIdAndDelete(req.params.id)
+    .then(deletedPerson => {
+      res.json(deletedPerson);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).end();
+    })
 });
 
 const PORT = process.env.PORT || 3001;
