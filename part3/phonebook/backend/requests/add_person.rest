@@ -41,3 +41,12 @@ Content-Type: application/json
   "name": "D", 
   "number": "123"
 }
+
+### Test number regex
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{ 
+  "name": "Test number regex", 
+  "number": "12-5678901"
+}
