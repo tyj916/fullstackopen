@@ -62,6 +62,9 @@ const PersonForm = ({persons, setPersons, setNotification}) => {
         setNewName('');
         setNewNumber('');
         setNotification(`Added ${returnedPerson.name}`);
+      })
+      .catch(error => {
+        setNotification(error.response.data.error, 'error');
       });
   }
 
