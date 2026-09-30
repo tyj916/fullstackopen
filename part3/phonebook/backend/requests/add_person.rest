@@ -33,20 +33,11 @@ Content-Type: application/json
   "number": "123"
 }
 
-###
+### Test minlength
 POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 { 
-  "name": "Dan Abramov", 
-  "number": "12-43-234345"
-}
-
-###
-POST http://localhost:3001/api/persons
-Content-Type: application/json
-
-{ 
-  "name": "Test Exists", 
-  "number": "12345"
+  "name": "D", 
+  "number": "123"
 }
