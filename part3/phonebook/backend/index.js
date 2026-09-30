@@ -40,7 +40,7 @@ app.get('/api/persons/:id', (req, res, next) => {
       if (!person) {
         return res.status(404).end();
       }
-      
+
       res.json(person);
     })
     .catch(error => next(error));
@@ -67,12 +67,23 @@ app.post('/api/persons', (req, res) => {
   });
 });
 
-app.put('/api/persons/:id', (req, res) => {
-  const id = req.params.id;
-  const updatedData = req.body;
-  Person.findByIdAndUpdate(id, updatedData, { new: true }).then(updatedPerson => {
-    res.json(updatedPerson);
-  });
+app.put('/api/persons/:id', (req, res, next) => {
+  const { name, number } = req.body;
+
+  Person.findById(req.params.id)
+    .then(person => {
+      if (!person) {
+        return res.status(404).end();
+      }
+
+      person.name = name;
+      person.number = number;
+
+      return person.save().then(updatedPerson => {
+        res.json(updatedPerson);
+      });
+    })
+    .catch(error => next(error));
 });
 
 app.delete('/api/persons/:id', (req, res, next) => {
