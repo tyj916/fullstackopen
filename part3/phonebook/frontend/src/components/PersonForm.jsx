@@ -32,9 +32,14 @@ const PersonForm = ({persons, setPersons, setNotification}) => {
             setPersons(persons.map(person => person.id === returnedPerson.id ? returnedPerson : person));
             setNotification(`Updated ${returnedPerson.name} number to ${returnedPerson.number}`);
           })
-          .catch(err => {
-            setNotification(`Information of ${currentPerson.name} has already been removed from server`, 'error');
-            setPersons(persons.filter(person => person.id !== currentPerson.id));
+          .catch(error => {
+            if (error.response.status === 404) {
+              setNotification(`Information of ${currentPerson.name} has already been removed from server`, 'error');
+              setPersons(persons.filter(person => person.id !== currentPerson.id));
+              return;
+            }
+
+            setNotification(error.response.data.error, 'error');
           })
           .finally(() => {
             setNewName('');
