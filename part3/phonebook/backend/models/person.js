@@ -22,6 +22,13 @@ const personSchema = new mongoose.Schema({
   },
   number: {
     type: String,
+    minLength: 8,
+    validate: {
+      validator: (v) => {
+        return /\d{2,3}-\d/.test(v);
+      },
+      message: props => `${props.value} is not a valid phone number. A phone number must be formed of two parts that are separated by -, the first part has two or three numbers and the second part also consists of numbers. eg. 09-1234556`
+    },
     required: true
   },
 });
