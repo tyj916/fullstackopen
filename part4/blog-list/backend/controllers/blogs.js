@@ -20,13 +20,14 @@ blogsRouter.get('/:id', (req, res, next) => {
     .catch(error => next(error));
 })
 
-blogsRouter.post('/', (req, res) => {
+blogsRouter.post('/', (req, res, next) => {
   const blog = new Blog(req.body);
 
   blog.save()
     .then(savedBlog => {
       res.status(201).json(savedBlog);
     })
+    .catch(error => next(error));
 });
 
 blogsRouter.delete('/:id', (req, res, next) => {
