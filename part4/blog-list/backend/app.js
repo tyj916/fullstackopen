@@ -4,6 +4,7 @@ const config = require('./utils/config');
 const logger = require('./utils/logger');
 
 const app = express();
+app.use(express.json());
 
 const blogSchema = mongoose.Schema({
   title: String,
@@ -32,8 +33,8 @@ app.post('/api/blogs', (req, res) => {
   const blog = new Blog(req.body);
 
   blog.save()
-    .then(result => {
-      res.status(201).json(result);
+    .then(savedBlog => {
+      res.status(201).json(savedBlog);
     });
 });
 
