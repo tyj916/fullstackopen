@@ -38,4 +38,24 @@ blogsRouter.delete('/:id', (req, res, next) => {
     .catch(error => next(error));
 })
 
+blogsRouter.put('/:id', (req, res) => {
+  const { title, author, url, likes } = req.body;
+
+  Blog.findById(req.params.id)
+    .then(blog => {
+      if (!blog) {
+        return response.status(404).end();
+      }
+
+      blog.title = title;
+      blog.author = author;
+      blog.url = url;
+      blog.likes = likes;
+
+      return blog.save().then(updatedBlog => {
+        res.json(updatedBlog);
+      });
+    });
+});
+
 module.exports = blogsRouter;
