@@ -44,7 +44,7 @@ blogsRouter.put('/:id', (req, res, next) => {
   Blog.findById(req.params.id)
     .then(blog => {
       if (!blog) {
-        return response.status(404).end();
+        return res.status(404).end();
       }
 
       blog.title = title;
