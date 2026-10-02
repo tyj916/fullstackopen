@@ -8,7 +8,7 @@ blogsRouter.get('/', (req, res) => {
     })
 });
 
-blogsRouter.get('/:id', (req, res) => {
+blogsRouter.get('/:id', (req, res, next) => {
   Blog.findById(req.params.id)
     .then(blog => {
       if (blog) {
@@ -17,6 +17,7 @@ blogsRouter.get('/:id', (req, res) => {
         res.status(404).end();
       }
     })
+    .catch(error => next(error));
 })
 
 blogsRouter.post('/', (req, res) => {
