@@ -13,6 +13,16 @@ mongoose.connect(config.MONGODB_URI, { family: 4 })
   })
   .catch(error => logger.error('Error connecting to MongoDB:', error.message));
 
+const requestLogger = (req, res, next) => {
+  logger.info('Method:', req.method);
+  logger.info('Path:  ', req.path);
+  logger.info('Body:  ', req.body);
+  logger.info('---');
+  next();
+};
+
+app.use(requestLogger);
+
 app.use('/api/blogs', blogsRouter);
 
 const unknownEndpoint = (req, res) => {
