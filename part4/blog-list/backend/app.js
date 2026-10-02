@@ -21,8 +21,20 @@ mongoose.connect(mongoUrl, { family: 4 })
   })
   .catch(error => logger.error('Error connecting to MongoDB:', error.message));
 
-app.get('/', (req, res) => {
-  res.send('<h1>Hello World!</h1>');
+app.get('/api/blogs', (req, res) => {
+  Blog.find({})
+    .then(blogs => {
+      res.json(blogs);
+    })
+});
+
+app.post('/api/blogs', (req, res) => {
+  const blog = new Blog(req.body);
+
+  blog.save()
+    .then(result => {
+      res.status(201).json(result);
+    });
 });
 
 module.exports = app;
