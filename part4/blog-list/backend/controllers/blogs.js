@@ -8,6 +8,17 @@ blogsRouter.get('/', (req, res) => {
     })
 });
 
+blogsRouter.get('/:id', (req, res) => {
+  Blog.findById(req.params.id)
+    .then(blog => {
+      if (blog) {
+        res.json(blog);
+      } else {
+        res.status(404).end();
+      }
+    })
+})
+
 blogsRouter.post('/', (req, res) => {
   const blog = new Blog(req.body);
 
