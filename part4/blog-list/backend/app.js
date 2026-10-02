@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const config = require('./utils/config');
 const logger = require('./utils/logger');
+const middleware = require('./utils/middleware');
 const blogsRouter = require('./controllers/blogs');
 
 const app = express();
@@ -13,22 +14,10 @@ mongoose.connect(config.MONGODB_URI, { family: 4 })
   })
   .catch(error => logger.error('Error connecting to MongoDB:', error.message));
 
-const requestLogger = (req, res, next) => {
-  logger.info('Method:', req.method);
-  logger.info('Path:  ', req.path);
-  logger.info('Body:  ', req.body);
-  logger.info('---');
-  next();
-};
-
-app.use(requestLogger);
+app.use(middleware.requestLogger);
 
 app.use('/api/blogs', blogsRouter);
 
-const unknownEndpoint = (req, res) => {
-  res.status(404).send({ error: 'unknown endpoint' });
-}
-
-app.use(unknownEndpoint);
+app.use(middleware.unknownEndpoint);
 
 module.exports = app;
