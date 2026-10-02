@@ -38,7 +38,7 @@ blogsRouter.delete('/:id', (req, res, next) => {
     .catch(error => next(error));
 })
 
-blogsRouter.put('/:id', (req, res) => {
+blogsRouter.put('/:id', (req, res, next) => {
   const { title, author, url, likes } = req.body;
 
   Blog.findById(req.params.id)
@@ -55,7 +55,8 @@ blogsRouter.put('/:id', (req, res) => {
       return blog.save().then(updatedBlog => {
         res.json(updatedBlog);
       });
-    });
+    })
+    .catch(error => next(error));
 });
 
 module.exports = blogsRouter;
