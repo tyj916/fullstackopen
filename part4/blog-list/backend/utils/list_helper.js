@@ -20,8 +20,33 @@ const favoriteBlog = (blogs) => {
   return mostLikedBlog;
 }
 
+const mostBlogs = (blogs) => {
+  const authorList = [];
+  let mostBlogsAuthorIndex = 0;
+
+  blogs.forEach(blog => {
+    const authorIndex = authorList.findIndex((author) => author.name === blog.author);
+
+    if (authorIndex === -1) {
+      authorList.push({
+        name: blog.author,
+        count: 1,
+      });
+    } else {
+      authorList[authorIndex].count++;
+
+      if (authorList[authorIndex].count > mostBlogsAuthorIndex) {
+        mostBlogsAuthorIndex = authorIndex;
+      } 
+    }
+  });
+
+  return authorList[mostBlogsAuthorIndex];
+}
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
+  mostBlogs,
 }
