@@ -21,6 +21,8 @@ const favoriteBlog = (blogs) => {
 }
 
 const mostBlogs = (blogs) => {
+  if (!blogs || blogs.length === 0) return null;
+
   const authorList = [];
   let mostBlogsAuthorIndex = 0;
 
