@@ -42,9 +42,35 @@ const mostBlogs = (blogs) => {
   return mostBlogsAuthor;
 }
 
+const mostLikes = (blogs) => {
+  if (!blogs || blogs.length === 0) return null;
+
+  const likesCounts = new Map();
+
+  let mostLikesAuthor = null;
+  let maxCount = 0;
+
+  for (const blog of blogs) {
+    const count = (likesCounts.get(blog.author) || 0) + blog.likes;
+
+    likesCounts.set(blog.author, count);
+
+    if (count > maxCount) {
+      maxCount = count;
+      mostLikesAuthor = {
+        author: blog.author,
+        likes: count,
+      }
+    }
+  }
+
+  return mostLikesAuthor;
+}
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
   mostBlogs,
+  mostLikes,
 }
