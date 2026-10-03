@@ -23,27 +23,22 @@ const favoriteBlog = (blogs) => {
 const mostBlogs = (blogs) => {
   if (!blogs || blogs.length === 0) return null;
 
-  const authorList = [];
-  let mostBlogsAuthorIndex = 0;
+  const counts = Object.create(null);
+  let mostBlogsAuthor = null;
+  let maxCount = 0;
 
-  blogs.forEach(blog => {
-    const authorIndex = authorList.findIndex((author) => author.name === blog.author);
+  for (const blog of blogs) {
+    const author = blog.author;
 
-    if (authorIndex === -1) {
-      authorList.push({
-        name: blog.author,
-        count: 1,
-      });
-    } else {
-      authorList[authorIndex].count++;
-
-      if (authorList[authorIndex].count > authorList[mostBlogsAuthorIndex].count) {
-        mostBlogsAuthorIndex = authorIndex;
-      } 
+    counts[author] = (counts[author] || 0) + 1;
+  
+    if (counts[author] > maxCount) {
+      maxCount = counts[author];
+      mostBlogsAuthor = author;
     }
-  });
+  }
 
-  return authorList[mostBlogsAuthorIndex].name;
+  return mostBlogsAuthor;
 }
 
 module.exports = {
