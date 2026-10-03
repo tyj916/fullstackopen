@@ -37,7 +37,7 @@ const mostBlogs = (blogs) => {
     } else {
       authorList[authorIndex].count++;
 
-      if (authorList[authorIndex].count > mostBlogsAuthorIndex) {
+      if (authorList[authorIndex].count > authorList[mostBlogsAuthorIndex].count) {
         mostBlogsAuthorIndex = authorIndex;
       } 
     }
