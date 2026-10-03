@@ -82,4 +82,9 @@ describe('total likes', () => {
     const result = listHelper.totalLikes(blogs);
     assert.strictEqual(result, 36);
   });
+
+  test('of empty blog list equals zero', () => {
+    const result = listHelper.totalLikes([]);
+    assert.strictEqual(result, 0);
+  })
 });
