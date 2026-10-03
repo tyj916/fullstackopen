@@ -113,4 +113,9 @@ describe('favorite blog', () => {
       __v: 0
     });
   });
+
+  test('when no blog is given equals nothing', () => {
+    const result = listHelper.favoriteBlog([]);
+    assert.deepStrictEqual(result, null);
+  });
 });
