@@ -13,7 +13,9 @@ const totalLikes = (blogs) => {
 const favoriteBlog = (blogs) => {
   const mostLikedBlog = blogs.reduce((max, current) => {
     return current.likes > max.likes ? current : max;
-  }, 0);
+  }, blogs[0]);
+
+  return mostLikedBlog;
 }
 
 module.exports = {
