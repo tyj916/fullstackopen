@@ -41,7 +41,7 @@ const mostBlogs = (blogs) => {
     }
   });
 
-  return authorList[mostBlogsAuthorIndex];
+  return authorList[mostBlogsAuthorIndex].name;
 }
 
 module.exports = {
