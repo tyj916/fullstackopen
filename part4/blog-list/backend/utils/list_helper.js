@@ -23,18 +23,19 @@ const favoriteBlog = (blogs) => {
 const mostBlogs = (blogs) => {
   if (!blogs || blogs.length === 0) return null;
 
-  const counts = Object.create(null);
+  const authorCounts = new Map();
+
   let mostBlogsAuthor = null;
   let maxCount = 0;
 
   for (const blog of blogs) {
-    const author = blog.author;
+    const count = (authorCounts.get(blog.author) || 0) + 1;
 
-    counts[author] = (counts[author] || 0) + 1;
-  
-    if (counts[author] > maxCount) {
-      maxCount = counts[author];
-      mostBlogsAuthor = author;
+    authorCounts.set(blog.author, count);
+
+    if (count > maxCount) {
+      maxCount = count;
+      mostBlogsAuthor = blog.author;
     }
   }
 
