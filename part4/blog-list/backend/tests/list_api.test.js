@@ -81,17 +81,20 @@ test('blog without title is not added', async () => {
 });
 
 test.only('blog without likes property will default the likes to the value 0', async () => {
-  const newBlog = new Blog({
+  const newBlog = {
     title: 'Go To Statement Considered Harmful',
     author: 'Edsger W. Dijkstra',
     url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
-  });
+  };
 
-  await newBlog.save();
+  const response = await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/);
 
   const blogsAtEnd = await helper.blogsInDb();
-  const noLikesBlog = blogsAtEnd.find(blog => blog.id === newBlog.id);
-  console.log(noLikesBlog);
+  const noLikesBlog = blogsAtEnd.find(blog => blog.id === response.body.id);
 
   assert.strictEqual(noLikesBlog.likes, 0);
 });
