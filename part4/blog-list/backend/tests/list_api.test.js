@@ -86,6 +86,27 @@ test('a specific blog is within the returned blogs', async () => {
   assert(titles.includes('React patterns'));
 });
 
+test('a valid blog can be added', async () => {
+  const newBlog = {
+    title: 'Go To Statement Considered Harmful',
+    author: 'Edsger W. Dijkstra',
+    url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
+    likes: 5,
+  };
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/);
+
+  const response = await api.get('/api/blogs');
+  const titles = response.body.map(blog => blog.title);
+
+  assert.strictEqual(response.body.length, initialBlogs.length + 1);
+  assert(titles.includes(newBlog.title));
+});
+
 after(async () => {
   await mongoose.connection.close();
 });
