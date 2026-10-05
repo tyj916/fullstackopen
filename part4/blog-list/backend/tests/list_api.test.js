@@ -55,6 +55,11 @@ describe('when there is initially some blogs saved', () => {
 
       assert.deepStrictEqual(resultBlog.body, blogToView);
     });
+
+    test('fails with statuscode 404 if blog does not exist', async () => {
+      const validNonExistingId = await helper.nonExistingId();
+      await api.get(`/api/blogs/${validNonExistingId}`).expect(404);
+    });
   });
 
   describe('addition of a new blog', () => {
