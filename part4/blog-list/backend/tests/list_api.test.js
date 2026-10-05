@@ -80,6 +80,22 @@ test('blog without title is not added', async () => {
   assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length);
 });
 
+test.only('blog without likes property will default the likes to the value 0', async () => {
+  const newBlog = new Blog({
+    title: 'Go To Statement Considered Harmful',
+    author: 'Edsger W. Dijkstra',
+    url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
+  });
+
+  await newBlog.save();
+
+  const blogsAtEnd = await helper.blogsInDb();
+  const noLikesBlog = blogsAtEnd.find(blog => blog.id === newBlog.id);
+  console.log(noLikesBlog);
+
+  assert.strictEqual(noLikesBlog.likes, 0);
+});
+
 test('a specific blog can be viewed', async () => {
   const blogsAtStart = await helper.blogsInDb();
   const blogToView = blogsAtStart[0];
