@@ -80,7 +80,7 @@ test('all blogs are returned', async () => {
 });
 
 test('a specific blog is within the returned blogs', async () => {
-  const response = await api.get('/api/notes');
+  const response = await api.get('/api/blogs');
 
   const titles = response.body.map(e => e.title);
   assert(titles.includes('React patterns'));
