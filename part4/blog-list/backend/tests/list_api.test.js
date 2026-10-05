@@ -43,7 +43,7 @@ describe('when there is initially some blogs saved', () => {
     assert(titles.includes('React patterns'));
   });
 
-  describe('viewing a specific blod', () => {
+  describe('viewing a specific blog', () => {
     test('succeeds with a vlid id', async () => {
       const blogsAtStart = await helper.blogsInDb();
       const blogToView = blogsAtStart[0];
