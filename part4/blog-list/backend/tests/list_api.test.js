@@ -23,6 +23,12 @@ test('blogs are returned as json', async () => {
     .expect('Content-Type', /application\/json/);
 });
 
+test('blog posts unique identifier property is named id', async () => {
+  const response = await api.get('/api/blogs');
+
+  assert(response.body[0].id);
+});
+
 test('all blogs are returned', async () => {
   const response = await api.get('/api/blogs');
 
