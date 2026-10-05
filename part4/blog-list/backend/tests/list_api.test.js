@@ -184,6 +184,25 @@ describe('when there is initially some blogs saved', () => {
       assert.strictEqual(updatedBlog.likes, blogToUpdate.likes + 1);
       assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length);
     });
+
+    test('fails with statuscode 400 if empty title and empty url are given', async () => {
+      const blogsAtStart = await helper.blogsInDb();
+      const blogToUpdate = blogsAtStart[0];
+
+      await api
+        .put(`/api/blogs/${blogToUpdate.id}`)
+        .send({
+          ...blogToUpdate,
+          title: '',
+          url: '',
+        })
+        .expect(400);
+      
+      const blogsAtEnd = await helper.blogsInDb();
+      const updatedBlog = blogsAtEnd.find(blog => blog.id === blogToUpdate.id);
+
+      assert.deepStrictEqual(updatedBlog, blogToUpdate);
+    });
   });
 });
 
