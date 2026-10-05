@@ -107,6 +107,23 @@ test('a valid blog can be added', async () => {
   assert(titles.includes(newBlog.title));
 });
 
+test('blog without title is not added', async () => {
+  const newBlog = {
+    author: 'Edsger W. Dijkstra',
+    url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
+    likes: 5,
+  };
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+
+  const response = await api.get('/api/blogs');
+
+  assert.strictEqual(response.body.length, initialBlogs.length);
+});
+
 after(async () => {
   await mongoose.connection.close();
 });
