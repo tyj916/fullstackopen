@@ -60,6 +60,11 @@ describe('when there is initially some blogs saved', () => {
       const validNonExistingId = await helper.nonExistingId();
       await api.get(`/api/blogs/${validNonExistingId}`).expect(404);
     });
+
+    test('fails with statuscode 400 if id is invalid', async () => {
+      const invalidId = '5a3d5da59070081a82a3445';
+      await api.get(`/api/blogs/${invalidId}`).expect(400);
+    });
   });
 
   describe('addition of a new blog', () => {
