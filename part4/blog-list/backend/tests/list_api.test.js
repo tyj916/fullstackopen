@@ -144,7 +144,7 @@ describe('when there is initially some blogs saved', () => {
     });
   });
 
-  describe('deletion of a note', () => {
+  describe('deletion of a blog', () => {
     test('succeeds with status code 204 if id is valid', async () => {
       const blogsAtStart = await helper.blogsInDb();
       const blogToDelete = blogsAtStart[0];
@@ -159,6 +159,30 @@ describe('when there is initially some blogs saved', () => {
       assert(!ids.includes(blogToDelete.id));
 
       assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1);
+    });
+  });
+
+  describe('update to a blog', () => {
+    test('succeeds with valid data', async () => {
+      const blogsAtStart = await helper.blogsInDb();
+      const blogToUpdate = blogsAtStart[0];
+
+      await api
+        .put(`/api/blogs/${blogToUpdate.id}`)
+        .send({
+          ...blogToUpdate,
+          title: 'Updated Title',
+          likes: blogToUpdate.likes + 1,
+        })
+        .expect(200)
+        .expect('Content-Type', /application\/json/);
+
+      const blogsAtEnd = await helper.blogsInDb();
+      const updatedBlog = blogsAtEnd.find(blog => blog.id === blogToUpdate.id);
+      
+      assert.strictEqual(updatedBlog.title, 'Updated Title');
+      assert.strictEqual(updatedBlog.likes, blogToUpdate.likes + 1);
+      assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length);
     });
   });
 });
