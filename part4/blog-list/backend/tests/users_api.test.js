@@ -70,6 +70,27 @@ describe('When there is initially one user in db', () => {
 
     assert.strictEqual(usersAtEnd.length, usersAtStart.length);
   });
+
+  test('creation fails with proper statuscode and message if password is invalid', async () => {
+    const usersAtStart = await helper.usersInDb();
+
+    const newUser = {
+      username: 'invalidpassword',
+      name: 'Invalid Password',
+      password: 'ip',
+    };
+
+    const result = await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/);
+
+    const usersAtEnd = await helper.usersInDb();
+    assert(result.body.error.includes('Password must be at least 3 characters'));
+
+    assert.strictEqual(usersAtStart.length, usersAtEnd.length);
+  });
 });
 
 after(async () => {
