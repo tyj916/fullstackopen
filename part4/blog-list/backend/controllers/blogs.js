@@ -3,12 +3,17 @@ const Blog = require('../models/blog');
 const User = require('../models/user');
 
 blogsRouter.get('/', async (req, res) => {
-  const blogs = await Blog.find({});
+  const blogs = await Blog
+    .find({}).populate('user', { passwordHash: 0, blogs: 0 });
+
   res.json(blogs);
 });
 
 blogsRouter.get('/:id', async (req, res, next) => {
-  const blog = await Blog.findById(req.params.id);
+  const blog = await Blog
+    .findById(req.params.id)
+    .populate('user', { passwordHash: 0, blogs: 0 });
+
   if (blog) {
     res.json(blog);
   } else {
