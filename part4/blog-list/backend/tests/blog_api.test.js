@@ -179,7 +179,7 @@ describe('when there is initially some blogs saved', () => {
       assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1);
     });
 
-    test('fails with statuscode 400 if no userId', async () => {
+    test('fails with statuscode 400 if not logged in', async () => {
       const newBlog = {
         title: 'Go To Statement Considered Harmful',
         author: 'Edsger W. Dijkstra',
@@ -190,10 +190,10 @@ describe('when there is initially some blogs saved', () => {
       const result = await api
         .post('/api/blogs')
         .send(newBlog)
-        .expect(400)
+        .expect(401)
         .expect('Content-Type', /application\/json/);
 
-      assert.strictEqual(result.body.error, 'userId missing or not valid');
+      assert.strictEqual(result.body.error, 'token invalid');
     });
   });
 
