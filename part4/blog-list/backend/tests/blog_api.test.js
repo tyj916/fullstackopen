@@ -79,7 +79,9 @@ describe('when there is initially some blogs saved', () => {
   describe('viewing a specific blog', () => {
     test('succeeds with a vlid id', async () => {
       const blogsAtStart = await helper.blogsInDb();
-      const blogToView = blogsAtStart[0];
+      const blogToView = await Blog
+          .findById(blogsAtStart[0].id)
+          .populate('user', { passwordHash: 0, blogs: 0 });
 
       const resultBlog = await api
         .get(`/api/blogs/${blogToView.id}`)
@@ -201,7 +203,7 @@ describe('when there is initially some blogs saved', () => {
   });
 
   describe('deletion of a blog', () => {
-    test.only('succeeds with status code 204 if id is valid', async () => {
+    test('succeeds with status code 204 if id is valid', async () => {
       const blogsAtStart = await helper.blogsInDb();
       const blogToDelete = blogsAtStart[0];
 
@@ -218,7 +220,7 @@ describe('when there is initially some blogs saved', () => {
       assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1);
     });
 
-    test.only('fails with statuscode 401 if invalid token', async () => {
+    test('fails with statuscode 401 if invalid token', async () => {
       const blogsAtStart = await helper.blogsInDb();
       const blogToDelete = blogsAtStart[0];
 
