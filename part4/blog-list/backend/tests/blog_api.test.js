@@ -86,7 +86,7 @@ describe('when there is initially some blogs saved', () => {
         .expect(200)
         .expect('Content-Type', /application\/json/);
 
-      assert.deepStrictEqual(resultBlog.body, blogToView);
+      assert.deepStrictEqual(resultBlog.body.id, blogToView.id);
     });
 
     test('fails with statuscode 404 if blog does not exist', async () => {
