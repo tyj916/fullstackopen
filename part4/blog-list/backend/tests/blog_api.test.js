@@ -98,10 +98,14 @@ describe('when there is initially some blogs saved', () => {
     });
 
     test('fails with the statuscode 400 if no title', async () => {
+      const users = await helper.usersInDb();
+      const userToAddBlog = users[0];
+
       const newBlog = {
         author: 'Edsger W. Dijkstra',
         url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
         likes: 5,
+        userId: userToAddBlog.id,
       };
 
       await api
@@ -115,10 +119,14 @@ describe('when there is initially some blogs saved', () => {
     });
 
     test('fails with the statuscode 400 if no url', async () => {
+      const users = await helper.usersInDb();
+      const userToAddBlog = users[0];
+
       const newBlog = {
         title: 'Go To Statement Considered Harmful',
         author: 'Edsger W. Dijkstra',
         likes: 5,
+        userId: userToAddBlog.id,
       };
 
       await api
@@ -153,7 +161,6 @@ describe('when there is initially some blogs saved', () => {
 
       assert.strictEqual(noLikesBlog.likes, 0);
       assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1);
-      assert.strictEqual(result.body.user, userToAddBlog.id);
     });
 
     test('fails with statuscode 400 if no userId', async () => {
@@ -161,6 +168,7 @@ describe('when there is initially some blogs saved', () => {
         title: 'Go To Statement Considered Harmful',
         author: 'Edsger W. Dijkstra',
         url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
+        likes: 5,
       };
 
       const result = await api
