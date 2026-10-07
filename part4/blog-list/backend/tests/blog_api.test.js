@@ -155,6 +155,22 @@ describe('when there is initially some blogs saved', () => {
       assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1);
       assert.strictEqual(result.body.user, userToAddBlog.id);
     });
+
+    test('fails with statuscode 400 if no userId', async () => {
+      const newBlog = {
+        title: 'Go To Statement Considered Harmful',
+        author: 'Edsger W. Dijkstra',
+        url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
+      };
+
+      const result = await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(400)
+        .expect('Content-Type', /application\/json/);
+
+      assert.strictEqual(result.body.error, 'userId missing or not valid');
+    });
   });
 
   describe('deletion of a blog', () => {
