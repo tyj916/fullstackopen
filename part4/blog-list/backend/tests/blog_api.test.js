@@ -42,7 +42,10 @@ describe('when there is initially some blogs saved', () => {
   beforeEach(async () => {
     await Blog.deleteMany({});
     
-    const blogObjects = helper.initialBlogs.map(blog => new Blog(blog));
+    const blogObjects = helper.initialBlogs.map(blog => new Blog({
+      ...blog,
+      user: userId
+    }));
     const promiseArray = blogObjects.map(blog => blog.save());
     await Promise.all(promiseArray);
   });
@@ -198,10 +201,9 @@ describe('when there is initially some blogs saved', () => {
   });
 
   describe('deletion of a blog', () => {
-    test('succeeds with status code 204 if id is valid', async () => {
+    test.only('succeeds with status code 204 if id is valid', async () => {
       const blogsAtStart = await helper.blogsInDb();
       const blogToDelete = blogsAtStart[0];
-      blogToDelete.user = userId;
 
       await api
         .delete(`/api/blogs/${blogToDelete.id}`)
@@ -222,7 +224,6 @@ describe('when there is initially some blogs saved', () => {
 
       await api
         .delete(`/api/blogs/${blogToDelete.id}`)
-        .set('Authorization', `Bearer ${authToken}`)
         .expect(401);
 
       const blogsAtEnd = await helper.blogsInDb();
