@@ -2,9 +2,11 @@ const { test, after, beforeEach, describe } = require('node:test');
 const assert = require('node:assert');
 const mongoose = require('mongoose');
 const supertest = require('supertest');
+const jwt = require('jsonwebtoken');
 const app = require('../app');
 const helper = require('./test_helper');
 const Blog = require('../models/blog');
+const User = require('../models/user');
 
 const api = supertest(app);
 
@@ -69,14 +71,18 @@ describe('when there is initially some blogs saved', () => {
 
   describe('addition of a new blog', () => {
     test('succeeds with valid data', async () => {
+      const users = await helper.usersInDb();
+      const userToAddBlog = users[0];
+
       const newBlog = {
         title: 'Go To Statement Considered Harmful',
         author: 'Edsger W. Dijkstra',
         url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
         likes: 5,
+        userId: userToAddBlog.id
       };
 
-      await api
+      const result = await api
         .post('/api/blogs')
         .send(newBlog)
         .expect(201)
@@ -87,6 +93,8 @@ describe('when there is initially some blogs saved', () => {
 
       const titles = blogsAtEnd.map(blog => blog.title);
       assert(titles.includes(newBlog.title));
+
+      assert.strictEqual(result.body.user, userToAddBlog.id);
     });
 
     test('fails with the statuscode 400 if no title', async () => {
@@ -124,23 +132,28 @@ describe('when there is initially some blogs saved', () => {
     });
 
     test('without likes property succeeds with the value default to 0', async () => {
+      const users = await helper.usersInDb();
+      const userToAddBlog = users[0];
+
       const newBlog = {
         title: 'Go To Statement Considered Harmful',
         author: 'Edsger W. Dijkstra',
         url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
+        userId: userToAddBlog.id,
       };
 
-      const response = await api
+      const result = await api
         .post('/api/blogs')
         .send(newBlog)
         .expect(201)
         .expect('Content-Type', /application\/json/);
 
       const blogsAtEnd = await helper.blogsInDb();
-      const noLikesBlog = blogsAtEnd.find(blog => blog.id === response.body.id);
+      const noLikesBlog = blogsAtEnd.find(blog => blog.id === result.body.id);
 
       assert.strictEqual(noLikesBlog.likes, 0);
       assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1);
+      assert.strictEqual(result.body.user, userToAddBlog.id);
     });
   });
 
