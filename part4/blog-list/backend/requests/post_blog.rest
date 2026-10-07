@@ -18,3 +18,15 @@ Content-Type: application/json
   "url": "http://localhost:3001/",
   "likes": 0
 }
+
+### with user
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "test",
+  "author": "author",
+  "url": "http://localhost:3001/",
+  "likes": 0,
+  "userId": "6ac629e9837e2b95eefbfd9c"
+}
