@@ -19,6 +19,15 @@ describe('When there is initially one user in db', () => {
     await user.save();
   });
 
+  test('users are returned as json with correct length', async () => {
+    const result = await api
+      .get('/api/users')
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    assert.strictEqual(result.body.length, 1);
+  });
+
   test('creation succeeds with a fresh username', async () => {
     const usersAtStart = await helper.usersInDb();
 
