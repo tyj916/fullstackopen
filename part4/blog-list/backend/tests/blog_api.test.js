@@ -1,8 +1,7 @@
-const { test, after, beforeEach, describe } = require('node:test');
+const { test, after, beforeEach, before, describe } = require('node:test');
 const assert = require('node:assert');
 const mongoose = require('mongoose');
 const supertest = require('supertest');
-const jwt = require('jsonwebtoken');
 const app = require('../app');
 const helper = require('./test_helper');
 const Blog = require('../models/blog');
@@ -11,6 +10,35 @@ const User = require('../models/user');
 const api = supertest(app);
 
 describe('when there is initially some blogs saved', () => {
+  let authToken = null;
+  let userId = null;
+
+  before(async () => {
+    await User.deleteMany({});
+
+    const newUser = {
+      username: 'root',
+      password: 'Sekret'
+    };
+
+    const userResponse = await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(201);
+
+    userId = userResponse.body.id;
+
+    const loginResponse = await api
+      .post('/api/login')
+      .send({
+        username: newUser.username,
+        password: newUser.password,
+      })
+      .expect(200);
+
+    authToken = loginResponse.body.token;
+  });
+
   beforeEach(async () => {
     await Blog.deleteMany({});
     
@@ -71,19 +99,16 @@ describe('when there is initially some blogs saved', () => {
 
   describe('addition of a new blog', () => {
     test('succeeds with valid data', async () => {
-      const users = await helper.usersInDb();
-      const userToAddBlog = users[0];
-
       const newBlog = {
         title: 'Go To Statement Considered Harmful',
         author: 'Edsger W. Dijkstra',
         url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
         likes: 5,
-        userId: userToAddBlog.id
       };
 
       const result = await api
         .post('/api/blogs')
+        .set('Authorization', `Bearer ${authToken}`)
         .send(newBlog)
         .expect(201)
         .expect('Content-Type', /application\/json/);
@@ -94,22 +119,19 @@ describe('when there is initially some blogs saved', () => {
       const titles = blogsAtEnd.map(blog => blog.title);
       assert(titles.includes(newBlog.title));
 
-      assert.strictEqual(result.body.user, userToAddBlog.id);
+      assert.strictEqual(result.body.user, userId);
     });
 
     test('fails with the statuscode 400 if no title', async () => {
-      const users = await helper.usersInDb();
-      const userToAddBlog = users[0];
-
       const newBlog = {
         author: 'Edsger W. Dijkstra',
         url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
         likes: 5,
-        userId: userToAddBlog.id,
       };
 
       await api
         .post('/api/blogs')
+        .set('Authorization', `Bearer ${authToken}`)
         .send(newBlog)
         .expect(400)
 
@@ -119,18 +141,15 @@ describe('when there is initially some blogs saved', () => {
     });
 
     test('fails with the statuscode 400 if no url', async () => {
-      const users = await helper.usersInDb();
-      const userToAddBlog = users[0];
-
       const newBlog = {
         title: 'Go To Statement Considered Harmful',
         author: 'Edsger W. Dijkstra',
         likes: 5,
-        userId: userToAddBlog.id,
       };
 
       await api
         .post('/api/blogs')
+        .set('Authorization', `Bearer ${authToken}`)
         .send(newBlog)
         .expect(400)
 
@@ -140,18 +159,15 @@ describe('when there is initially some blogs saved', () => {
     });
 
     test('without likes property succeeds with the value default to 0', async () => {
-      const users = await helper.usersInDb();
-      const userToAddBlog = users[0];
-
       const newBlog = {
         title: 'Go To Statement Considered Harmful',
         author: 'Edsger W. Dijkstra',
         url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
-        userId: userToAddBlog.id,
       };
 
       const result = await api
         .post('/api/blogs')
+        .set('Authorization', `Bearer ${authToken}`)
         .send(newBlog)
         .expect(201)
         .expect('Content-Type', /application\/json/);
