@@ -12,7 +12,7 @@ const Notification = ({ notification, setNotification }) => {
   }, [notification]);
 
   return (
-    <div>
+    <div className='notification'>
       <p>{notification}</p>
     </div>
   );
