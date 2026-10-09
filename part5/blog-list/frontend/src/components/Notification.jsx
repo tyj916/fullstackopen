@@ -1,19 +1,19 @@
 import { useEffect } from "react";
 
-const Notification = ({ message, setMessage }) => {
+const Notification = ({ notification, setNotification }) => {
   useEffect(() => {
-    if (!message) return;
+    if (!notification) return;
 
     const timer = setTimeout(() => {
-      setMessage('');
+      setNotification('');
     }, 5000);
 
     return () => clearTimeout(timer);
-  }, [message]);
+  }, [notification]);
 
   return (
     <div>
-      <p>{message}</p>
+      <p>{notification}</p>
     </div>
   );
 };

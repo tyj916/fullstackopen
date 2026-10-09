@@ -5,7 +5,7 @@ import LoginForm from './components/LoginForm';
 import BlogForm from './components/BlogForm';
 import Notification from './components/Notification';
 
-const Body = ({ user, setUser, setMessage }) => {
+const Body = ({ user, setUser, setNotification }) => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const Body = ({ user, setUser, setMessage }) => {
 
   if (!user) {
     return (
-      <LoginForm setUser={setUser} setMessage={setMessage} />
+      <LoginForm setUser={setUser} setNotification={setNotification} />
     );
   }
 
@@ -41,7 +41,7 @@ const Body = ({ user, setUser, setMessage }) => {
 
 const App = () => {
   const [user, setUser] = useState(null);
-  const [message, setMessage] = useState('');
+  const [notification, setNotification] = useState('');
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser');
@@ -55,8 +55,8 @@ const App = () => {
   return (
     <div>
       <h2>{user ? 'Blogs' : 'Log in to application'}</h2>
-      {message && <Notification message={message} setMessage={setMessage} />}
-      <Body user={user} setUser={setUser} setMessage={setMessage} />
+      {notification && <Notification notification={notification} setNotification={setNotification} />}
+      <Body user={user} setUser={setUser} setNotification={setNotification} />
     </div>
   )
 }
