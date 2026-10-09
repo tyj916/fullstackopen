@@ -10,6 +10,9 @@ const BlogForm = ({ blogs, setBlogs }) => {
     e.preventDefault();
     const returnedBlog = await blogService.create({ title, author, url });
     setBlogs(blogs.concat(returnedBlog));
+    setTitle('');
+    setAuthor('');
+    setUrl('');
   }
 
   return (
