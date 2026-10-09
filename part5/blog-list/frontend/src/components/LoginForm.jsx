@@ -4,19 +4,32 @@ import axios from "axios";
 const LoginForm = ({ setUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
     const credentials = { username, password };
-    const user = await axios.post('/api/login', credentials);
-    setUser(user);
-    setUsername('');
-    setPassword('');
+    try {
+      const user = await axios.post('/api/login', credentials);
+      setUser(user);
+      setUsername('');
+      setPassword('');
+    } catch {
+      setErrorMessage('Wrong credentials');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 5000);
+    }
   };
 
   return (
     <div>
       <h2>Log in to application</h2>
+      {errorMessage && (
+        <div>
+          <p>{errorMessage}</p>
+        </div>
+      )}
       <form onSubmit={handleLogin}>
         <p>
           <label htmlFor="username">Username</label>
