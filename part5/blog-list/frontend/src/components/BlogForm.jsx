@@ -1,13 +1,14 @@
 import { useState } from "react";
+import blogService from '../services/blogs';
 
 const BlogForm = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Process blog submission', title, author, url);
+    await blogService.create({ title, author, url });
   }
 
   return (
