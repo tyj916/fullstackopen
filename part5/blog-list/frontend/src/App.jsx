@@ -15,7 +15,7 @@ const App = () => {
 
   if (!user) {
     return (
-      <LoginForm />
+      <LoginForm setUser={setUser} />
     );
   }
 

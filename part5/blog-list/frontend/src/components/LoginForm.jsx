@@ -1,12 +1,17 @@
 import { useState } from "react";
+import axios from "axios";
 
-const LoginForm = () => {
+const LoginForm = ({ setUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log('Process login');
+    const credentials = { username, password };
+    const user = await axios.post('/api/login', credentials);
+    setUser(user);
+    setUsername('');
+    setPassword('');
   };
 
   return (
