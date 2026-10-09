@@ -10,7 +10,8 @@ const LoginForm = ({ setUser }) => {
     e.preventDefault();
     const credentials = { username, password };
     try {
-      const user = await axios.post('/api/login', credentials);
+      const response  = await axios.post('/api/login', credentials);
+      const user = response.data;
       setUser(user);
       setUsername('');
       setPassword('');
