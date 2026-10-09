@@ -7,6 +7,7 @@ import BlogForm from './components/BlogForm';
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser');
@@ -25,7 +26,7 @@ const App = () => {
 
   if (!user) {
     return (
-      <LoginForm setUser={setUser} />
+      <LoginForm setUser={setUser} message={message} setMessage={setMessage} />
     );
   }
 

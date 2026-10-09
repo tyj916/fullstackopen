@@ -1,11 +1,11 @@
 import { useState } from "react";
 import loginService from '../services/login';
 import blogService from '../services/blogs';
+import Notification from "./Notification";
 
-const LoginForm = ({ setUser }) => {
+const LoginForm = ({ setUser, message, setMessage }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,9 +18,9 @@ const LoginForm = ({ setUser }) => {
       setUsername('');
       setPassword('');
     } catch {
-      setErrorMessage('Wrong credentials');
+      setMessage('Wrong credentials');
       setTimeout(() => {
-        setErrorMessage('');
+        setMessage('');
       }, 5000);
     }
   };
@@ -28,11 +28,7 @@ const LoginForm = ({ setUser }) => {
   return (
     <div>
       <h2>Log in to application</h2>
-      {errorMessage && (
-        <div>
-          <p>{errorMessage}</p>
-        </div>
-      )}
+      {message && <Notification message={message} />}
       <form onSubmit={handleLogin}>
         <p>
           <label htmlFor="username">Username</label>
