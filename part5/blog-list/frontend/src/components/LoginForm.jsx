@@ -19,16 +19,13 @@ const LoginForm = ({ setUser, message, setMessage }) => {
       setPassword('');
     } catch {
       setMessage('Wrong credentials');
-      setTimeout(() => {
-        setMessage('');
-      }, 5000);
     }
   };
 
   return (
     <div>
       <h2>Log in to application</h2>
-      {message && <Notification message={message} />}
+      {message && <Notification message={message} setMessage={setMessage} />}
       <form onSubmit={handleLogin}>
         <p>
           <label htmlFor="username">Username</label>
