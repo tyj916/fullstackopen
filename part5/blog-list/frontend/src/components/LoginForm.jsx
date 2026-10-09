@@ -1,9 +1,8 @@
 import { useState } from "react";
 import loginService from '../services/login';
 import blogService from '../services/blogs';
-import Notification from "./Notification";
 
-const LoginForm = ({ setUser, message, setMessage }) => {
+const LoginForm = ({ setUser, setMessage }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -24,8 +23,6 @@ const LoginForm = ({ setUser, message, setMessage }) => {
 
   return (
     <div>
-      <h2>Log in to application</h2>
-      {message && <Notification message={message} setMessage={setMessage} />}
       <form onSubmit={handleLogin}>
         <p>
           <label htmlFor="username">Username</label>
