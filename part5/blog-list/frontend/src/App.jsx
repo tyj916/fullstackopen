@@ -26,6 +26,7 @@ const Body = ({ user, setUser, setNotification }) => {
         {user.name} logged in 
         <button onClick={() => {
           window.localStorage.removeItem('loggedBlogAppUser');
+          setNotification('Successfully logged out');
           setUser(null);
         }}>Logout</button>
       </p>
