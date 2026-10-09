@@ -31,7 +31,7 @@ const Body = ({ user, setUser, setNotification }) => {
         }}>Logout</button>
       </p>
 
-      <BlogForm blogs={blogs} setBlogs={setBlogs} />
+      <BlogForm blogs={blogs} setBlogs={setBlogs} setNotification={setNotification} />
 
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
