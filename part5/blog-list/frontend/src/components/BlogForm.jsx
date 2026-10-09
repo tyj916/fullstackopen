@@ -1,14 +1,15 @@
 import { useState } from "react";
 import blogService from '../services/blogs';
 
-const BlogForm = () => {
+const BlogForm = ({ blogs, setBlogs }) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await blogService.create({ title, author, url });
+    const returnedBlog = await blogService.create({ title, author, url });
+    setBlogs(blogs.concat(returnedBlog));
   }
 
   return (
