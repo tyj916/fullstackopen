@@ -6,3 +6,15 @@
   border-radius: 8px;
   color: darkslategrey;
 }
+
+.blog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.blog {
+  padding: 0 9px;
+  border: 2px solid darkslategrey;
+  border-radius: 2px;
+}

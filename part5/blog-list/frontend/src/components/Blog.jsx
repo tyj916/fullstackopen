@@ -19,7 +19,7 @@ const Blog = ({ blog }) => {
   };
 
   return (
-    <div>
+    <div className="blog">
       <p>{blog.title} {blog.author} <button onClick={toggleDetails}>{label}</button></p> 
       {visible && <BlogDetails blog={blog} />}
     </div>  
