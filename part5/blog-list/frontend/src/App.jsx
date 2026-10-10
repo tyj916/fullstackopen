@@ -60,8 +60,8 @@ const App = () => {
   }
 
   const removeBlog = async (blogObject) => {
-    const removedBlog = await blogService.remove(blogObject);
-    const newBlogs = blogs.filter(blog => blog.id !== removedBlog.id);
+    await blogService.remove(blogObject);
+    const newBlogs = blogs.filter(blog => blog.id !== blogObject.id);
     setBlogs(newBlogs);
   }
 
