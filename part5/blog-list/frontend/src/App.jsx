@@ -5,45 +5,17 @@ import LoginForm from './components/LoginForm';
 import BlogForm from './components/BlogForm';
 import Notification from './components/Notification';
 
-const Body = ({ user, setUser, setNotification }) => {
+const App = () => {
   const [blogs, setBlogs] = useState([]);
+  const [user, setUser] = useState(null);
+  const [notification, setNotification] = useState('');
+  const title = user ? 'Blogs' : 'Log in to application';
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
     )  
   }, []);
-
-  if (!user) {
-    return (
-      <LoginForm setUser={setUser} setNotification={setNotification} />
-    );
-  }
-
-  return (
-    <div>
-      <p>
-        {user.name} logged in 
-        <button onClick={() => {
-          window.localStorage.removeItem('loggedBlogAppUser');
-          setNotification('Successfully logged out');
-          setUser(null);
-        }}>Logout</button>
-      </p>
-
-      <BlogForm blogs={blogs} setBlogs={setBlogs} setNotification={setNotification} />
-
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
-      )}
-    </div>
-  )
-}
-
-const App = () => {
-  const [user, setUser] = useState(null);
-  const [notification, setNotification] = useState('');
-  const title = user ? 'Blogs' : 'Log in to application';
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser');
@@ -58,7 +30,25 @@ const App = () => {
     <div>
       <h2>{title}</h2>
       <Notification notification={notification} setNotification={setNotification} />
-      <Body user={user} setUser={setUser} setNotification={setNotification} />
+      {!user && <LoginForm setUser={setUser} setNotification={setNotification} />}
+      {user && (
+        <div>
+          <p>
+            {user.name} logged in 
+            <button onClick={() => {
+              window.localStorage.removeItem('loggedBlogAppUser');
+              setNotification('Successfully logged out');
+              setUser(null);
+            }}>Logout</button>
+          </p>
+
+          <BlogForm blogs={blogs} setBlogs={setBlogs} setNotification={setNotification} />
+
+          {blogs.map(blog =>
+            <Blog key={blog.id} blog={blog} />
+          )}
+        </div>
+      )}
     </div>
   )
 }
