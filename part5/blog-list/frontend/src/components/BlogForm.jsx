@@ -1,7 +1,7 @@
 import { useState } from "react";
 import blogService from '../services/blogs';
 
-const BlogForm = ({ blogs, setBlogs, setNotification }) => {
+const BlogForm = ({ blogs, setBlogs, setNotification, ref }) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
@@ -14,6 +14,7 @@ const BlogForm = ({ blogs, setBlogs, setNotification }) => {
     setAuthor('');
     setUrl('');
     setNotification(`A new blog ${returnedBlog.title} by ${returnedBlog.author} is added`);
+    ref.current.toggleVisibility();
   }
 
   return (

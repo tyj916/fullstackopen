@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import LoginForm from './components/LoginForm';
@@ -10,6 +10,7 @@ const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
   const [notification, setNotification] = useState('');
+  const blogFormRef = useRef();
   const title = user ? 'Blogs' : 'Log in to application';
 
   useEffect(() => {
@@ -43,8 +44,13 @@ const App = () => {
         <div>
           <p>{user.name} logged in <button onClick={logout}>Logout</button></p>
 
-          <Togglable buttonLabel='New blog'>
-            <BlogForm blogs={blogs} setBlogs={setBlogs} setNotification={setNotification} />
+          <Togglable buttonLabel='New blog' ref={blogFormRef}>
+            <BlogForm 
+              blogs={blogs} 
+              setBlogs={setBlogs} 
+              setNotification={setNotification} 
+              ref={blogFormRef}
+            />
           </Togglable>
 
           {blogs.map(blog =>
