@@ -26,6 +26,12 @@ const App = () => {
     }
   }, []);
 
+  const logout = () => {
+    window.localStorage.removeItem('loggedBlogAppUser');
+    setNotification('Successfully logged out');
+    setUser(null);
+  };
+
   return (
     <div>
       <h2>{title}</h2>
@@ -33,14 +39,7 @@ const App = () => {
       {!user && <LoginForm setUser={setUser} setNotification={setNotification} />}
       {user && (
         <div>
-          <p>
-            {user.name} logged in 
-            <button onClick={() => {
-              window.localStorage.removeItem('loggedBlogAppUser');
-              setNotification('Successfully logged out');
-              setUser(null);
-            }}>Logout</button>
-          </p>
+          <p>{user.name} logged in <button onClick={logout}>Logout</button></p>
 
           <BlogForm blogs={blogs} setBlogs={setBlogs} setNotification={setNotification} />
 
