@@ -124,7 +124,7 @@ describe('when there is initially some blogs saved', () => {
       const titles = blogsAtEnd.map(blog => blog.title);
       assert(titles.includes(newBlog.title));
 
-      assert.strictEqual(result.body.user, userId);
+      assert.strictEqual(result.body.user.id, userId);
     });
 
     test('fails with the statuscode 400 if no title', async () => {
