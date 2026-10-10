@@ -46,6 +46,13 @@ const App = () => {
     setUser(null);
   };
 
+  const addBlog = async (blogObject) => {
+    const returnedBlog = await blogService.create(blogObject);
+    setBlogs(blogs.concat(returnedBlog));
+    setNotification(`A new blog ${returnedBlog.title} by ${returnedBlog.author} is added`);
+    blogFormRef.current.toggleVisibility();
+  }
+
   return (
     <div>
       <h2>{title}</h2>
@@ -57,12 +64,7 @@ const App = () => {
           <p>{user.name} logged in <button onClick={logout}>Logout</button></p>
 
           <Togglable buttonLabel='New blog' ref={blogFormRef}>
-            <BlogForm 
-              blogs={blogs} 
-              setBlogs={setBlogs} 
-              setNotification={setNotification} 
-              ref={blogFormRef}
-            />
+            <BlogForm addBlog={addBlog}/>
           </Togglable>
 
           {blogs.map(blog =>

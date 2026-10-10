@@ -1,21 +1,17 @@
 import { useState } from "react";
-import blogService from '../services/blogs';
 
-const BlogForm = ({ blogs, setBlogs, setNotification, ref }) => {
+const BlogForm = ({ addBlog }) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const returnedBlog = await blogService.create({ title, author, url });
-    setBlogs(blogs.concat(returnedBlog));
+    addBlog({ title, author, url });
     setTitle('');
     setAuthor('');
     setUrl('');
-    setNotification(`A new blog ${returnedBlog.title} by ${returnedBlog.author} is added`);
-    ref.current.toggleVisibility();
-  }
+  };
 
   return (
     <div>
