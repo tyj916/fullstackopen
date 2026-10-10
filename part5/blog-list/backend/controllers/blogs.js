@@ -34,6 +34,7 @@ blogsRouter.post('/', userExtractor, async (req, res, next) => {
   user.blogs = user.blogs.concat(savedBlog.id);
   await user.save();
 
+  await savedBlog.populate('user', { passwordHash: 0, blogs: 0 });
   res.status(201).json(savedBlog);
 });
 
@@ -65,6 +66,7 @@ blogsRouter.put('/:id', async (req, res, next) => {
   blog.likes = likes;
 
   const updatedBlog = await blog.save();
+  await updatedBlog.populate('user', { passwordHash: 0, blogs: 0 });
   res.json(updatedBlog);
 });
 
