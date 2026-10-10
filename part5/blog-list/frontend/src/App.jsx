@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
-import blogService from './services/blogs'
+import blogService from './services/blogs';
+import loginService from './services/login';
 import LoginForm from './components/LoginForm';
 import BlogForm from './components/BlogForm';
 import Notification from './components/Notification';
@@ -28,6 +29,17 @@ const App = () => {
     }
   }, []);
 
+  const login = async (credentials) => {
+    try {
+      const user = await loginService.login(credentials);
+      window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(user));
+      blogService.setToken(user.token);
+      setUser(user);
+    } catch {
+      setNotification('Wrong credentials');
+    }
+  };
+
   const logout = () => {
     window.localStorage.removeItem('loggedBlogAppUser');
     setNotification('Successfully logged out');
@@ -39,7 +51,7 @@ const App = () => {
       <h2>{title}</h2>
       {/* conditional rendering here instead of inside of component to avoid internal react error */}
       {notification && <Notification notification={notification} setNotification={setNotification} />}
-      {!user && <LoginForm setUser={setUser} setNotification={setNotification} />}
+      {!user && <LoginForm login={login} />}
       {user && (
         <div>
           <p>{user.name} logged in <button onClick={logout}>Logout</button></p>
