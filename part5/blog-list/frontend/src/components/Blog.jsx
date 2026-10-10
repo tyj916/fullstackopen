@@ -1,13 +1,17 @@
 import { useState } from "react";
 
 const BlogDetails = ({ blog }) => {
+  const handleLike = () => {
+    console.log('liked');
+  };
+
   return (
     <>
       <p>{blog.url}</p>
-      <p>Likes: {blog.likes}</p>
+      <p>Likes: {blog.likes} <button onClick={handleLike}>Like</button></p>
       <p>{blog.user.name}</p>
     </>
-  )
+  );
 };
 
 const Blog = ({ blog }) => {
@@ -23,7 +27,7 @@ const Blog = ({ blog }) => {
       <p>{blog.title} {blog.author} <button onClick={toggleDetails}>{label}</button></p> 
       {visible && <BlogDetails blog={blog} />}
     </div>  
-  )
+  );
 };
 
 export default Blog;
