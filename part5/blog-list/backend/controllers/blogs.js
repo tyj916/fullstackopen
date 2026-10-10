@@ -9,7 +9,7 @@ blogsRouter.get('/', async (req, res) => {
   res.json(blogs);
 });
 
-blogsRouter.get('/:id', async (req, res, next) => {
+blogsRouter.get('/:id', async (req, res) => {
   const blog = await Blog
     .findById(req.params.id)
     .populate('user', { passwordHash: 0, blogs: 0 });
@@ -21,7 +21,7 @@ blogsRouter.get('/:id', async (req, res, next) => {
   }
 });
 
-blogsRouter.post('/', userExtractor, async (req, res, next) => {
+blogsRouter.post('/', userExtractor, async (req, res) => {
   const user = req.user;
 
   const blog = new Blog({
@@ -38,7 +38,7 @@ blogsRouter.post('/', userExtractor, async (req, res, next) => {
   res.status(201).json(savedBlog);
 });
 
-blogsRouter.delete('/:id', userExtractor, async (req, res, next) => {
+blogsRouter.delete('/:id', userExtractor, async (req, res) => {
   const user = req.user;
 
   const blog = await Blog.findById(req.params.id);
@@ -52,7 +52,7 @@ blogsRouter.delete('/:id', userExtractor, async (req, res, next) => {
   res.status(204).end();
 });
 
-blogsRouter.put('/:id', async (req, res, next) => {
+blogsRouter.put('/:id', async (req, res) => {
   const { title, author, url, likes } = req.body;
   const blog = await Blog.findById(req.params.id);
   
