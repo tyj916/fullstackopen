@@ -53,6 +53,11 @@ const App = () => {
     blogFormRef.current.toggleVisibility();
   }
 
+  const updateBlog = async (blogObject) => {
+    const updatedBlog = await blogService.update(blogObject);
+    console.log(updatedBlog);
+  }
+
   return (
     <div>
       <h2>{title}</h2>
@@ -68,7 +73,7 @@ const App = () => {
           </Togglable>
 
           <div className='blog-list'>{blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} />
+            <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
           )}</div>
         </div>
       )}

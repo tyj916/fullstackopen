@@ -1,8 +1,13 @@
 import { useState } from "react";
 
-const BlogDetails = ({ blog }) => {
+const BlogDetails = ({ blog, updateBlog }) => {
   const handleLike = () => {
-    console.log('liked');
+    const newBlog = {
+      ...blog,
+      likes: blog.likes + 1
+    };
+
+    updateBlog(newBlog);
   };
 
   return (
@@ -14,7 +19,7 @@ const BlogDetails = ({ blog }) => {
   );
 };
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, updateBlog }) => {
   const [visible, setVisible] = useState(false);
   const label = visible ? 'hide' : 'view';
 
@@ -25,7 +30,7 @@ const Blog = ({ blog }) => {
   return (
     <div className="blog">
       <p>{blog.title} {blog.author} <button onClick={toggleDetails}>{label}</button></p> 
-      {visible && <BlogDetails blog={blog} />}
+      {visible && <BlogDetails blog={blog} updateBlog={updateBlog} />}
     </div>  
   );
 };
