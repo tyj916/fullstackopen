@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
 const Notification = ({ notification, setNotification }) => {
-  useEffect(() => {
-    if (!notification) return;
+  if (!notification) return;
 
+  useEffect(() => {
     const timer = setTimeout(() => {
       setNotification('');
     }, 5000);

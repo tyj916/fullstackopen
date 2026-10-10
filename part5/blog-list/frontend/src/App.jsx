@@ -56,7 +56,7 @@ const App = () => {
   return (
     <div>
       <h2>{user ? 'Blogs' : 'Log in to application'}</h2>
-      {notification && <Notification notification={notification} setNotification={setNotification} />}
+      <Notification notification={notification} setNotification={setNotification} />
       <Body user={user} setUser={setUser} setNotification={setNotification} />
     </div>
   )
