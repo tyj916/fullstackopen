@@ -1,12 +1,12 @@
-import { useState, useImperativeHandle } from "react";
+import { useState, useImperativeHandle } from 'react'
 
 const Togglable = (props) => {
-  const [visible, setVisible] = useState(false);
-  const label = visible ? 'Close' : props.buttonLabel;
+  const [visible, setVisible] = useState(false)
+  const label = visible ? 'Close' : props.buttonLabel
 
   const toggleVisibility = () => {
-    setVisible(!visible);
-  };
+    setVisible(!visible)
+  }
 
   useImperativeHandle(props.ref, () => {
     return { toggleVisibility }
@@ -18,6 +18,6 @@ const Togglable = (props) => {
       {visible && props.children}
     </div>
   )
-};
+}
 
-export default Togglable;
+export default Togglable
