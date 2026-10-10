@@ -35,7 +35,8 @@ const App = () => {
   return (
     <div>
       <h2>{title}</h2>
-      <Notification notification={notification} setNotification={setNotification} />
+      {/* conditional rendering here instead of inside of component to avoid internal react error */}
+      {notification && <Notification notification={notification} setNotification={setNotification} />}
       {!user && <LoginForm setUser={setUser} setNotification={setNotification} />}
       {user && (
         <div>
