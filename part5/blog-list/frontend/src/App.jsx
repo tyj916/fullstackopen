@@ -43,6 +43,7 @@ const Body = ({ user, setUser, setNotification }) => {
 const App = () => {
   const [user, setUser] = useState(null);
   const [notification, setNotification] = useState('');
+  const title = user ? 'Blogs' : 'Log in to application';
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser');
@@ -55,7 +56,7 @@ const App = () => {
 
   return (
     <div>
-      <h2>{user ? 'Blogs' : 'Log in to application'}</h2>
+      <h2>{title}</h2>
       <Notification notification={notification} setNotification={setNotification} />
       <Body user={user} setUser={setUser} setNotification={setNotification} />
     </div>
