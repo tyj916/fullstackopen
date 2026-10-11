@@ -5,7 +5,7 @@ describe('<Blog />', () => {
   beforeEach(() => {
     const blog = {
       title: 'Component test with react-testing-library',
-      author: 'Test',
+      author: 'Author Name',
       url: 'http://localhost:3003/',
       likes: 1,
       user: {
@@ -16,8 +16,8 @@ describe('<Blog />', () => {
     render(<Blog blog={blog} />)
   })
 
-  test('render title', () => {
-    const element = screen.getByText('Component test with react-testing-library', { exact: false })
+  test('render title and author', () => {
+    const element = screen.getByText('Component test with react-testing-library Author Name', { exact: false })
     expect(element).toBeDefined()
   })
 
