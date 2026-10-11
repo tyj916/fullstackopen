@@ -22,7 +22,10 @@ describe('<Blog />', () => {
   })
 
   test('at start the blog details are not displayed', () => {
-    const element = screen.queryByText(/http:\/\/localhost:3003\//i)
-    expect(element).not.toBeInTheDocument()
+    const url = screen.queryByText(/http:\/\/localhost:3003\//i)
+    const likes = screen.queryByText(/Likes/i)
+    
+    expect(url).not.toBeInTheDocument()
+    expect(likes).not.toBeInTheDocument()
   })
 })
