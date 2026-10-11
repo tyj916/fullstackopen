@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import Blog from './Blog'
 
 describe('<Blog />', () => {
@@ -27,5 +28,17 @@ describe('<Blog />', () => {
     
     expect(url).not.toBeInTheDocument()
     expect(likes).not.toBeInTheDocument()
+  })
+
+  test('clicking the button toggle blog details display', async () => {
+    const user = userEvent.setup()
+    const button = screen.getByText('view')
+    await user.click(button)
+
+    const url = screen.queryByText(/http:\/\/localhost:3003\//i)
+    const likes = screen.queryByText(/Likes/i)
+    
+    expect(url).toBeInTheDocument()
+    expect(likes).toBeInTheDocument()
   })
 })
