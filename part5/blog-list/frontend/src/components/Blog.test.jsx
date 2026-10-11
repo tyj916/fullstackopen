@@ -3,6 +3,8 @@ import userEvent from '@testing-library/user-event'
 import Blog from './Blog'
 
 describe('<Blog />', () => {
+  let mockUpdateHandler;
+
   beforeEach(() => {
     const blog = {
       title: 'Component test with react-testing-library',
@@ -14,7 +16,9 @@ describe('<Blog />', () => {
       }
     }
 
-    render(<Blog blog={blog} />)
+    mockUpdateHandler = vi.fn()
+
+    render(<Blog blog={blog} updateBlog={mockUpdateHandler} />)
   })
 
   test('render title and author', () => {
@@ -40,5 +44,17 @@ describe('<Blog />', () => {
     
     expect(url).toBeInTheDocument()
     expect(likes).toBeInTheDocument()
+  })
+
+  test('clicking the like button 2 times calls event handler twice', async () => {
+    const user = userEvent.setup()
+    const viewButton = screen.getByText('view')
+    await user.click(viewButton);
+
+    const likeButton = screen.getByText('Like')
+    await user.click(likeButton)
+    await user.click(likeButton)
+
+    expect(mockUpdateHandler.mock.calls).toHaveLength(2)
   })
 })
