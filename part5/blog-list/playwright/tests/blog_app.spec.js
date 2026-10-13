@@ -8,4 +8,8 @@ describe('Blog app', () => {
   test('Login form is shown', async ({ page }) => {
     await expect(page.getByText('Log in to application')).toBeVisible()
   })
+
+  test('User can login', async ({ page }) => {
+    await page.getByRole('button', { name: 'Log in' }).click()
+  })
 })
