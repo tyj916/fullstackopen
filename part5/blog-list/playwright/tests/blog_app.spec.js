@@ -1,4 +1,5 @@
 const { test, describe, beforeEach, expect } = require('@playwright/test')
+const { loginWith } = require('./helper')
 
 describe('Blog app', () => {
   beforeEach(async ({ page }) => {
@@ -13,18 +14,14 @@ describe('Blog app', () => {
   })
 
   test('User can login', async ({ page }) => {
-    await page.getByRole('textbox', { name: 'username' }).fill('root')
-    await page.getByRole('textbox', { name: 'password' }).fill('Sekret')
-    await page.getByRole('button', { name: 'Log in' }).click()
+    await loginWith(page, 'root', 'Sekret')
 
     await expect(page.getByText('Blogs')).toBeVisible()
     await expect(page.getByText('Superuser logged in')).toBeVisible()
   })
 
   test('login failed with wrong credentials', async ({ page }) => {
-    await page.getByRole('textbox', { name: 'username' }).fill('root')
-    await page.getByRole('textbox', { name: 'username' }).fill('wrong')
-    await page.getByRole('button', { name: 'Log in' }).click()
+    await loginWith(page, 'root', 'wrong')
 
     await expect(page.getByText('Wrong credentials')).toBeVisible()
     await expect(page.getByText('Blogs')).not.toBeVisible()
