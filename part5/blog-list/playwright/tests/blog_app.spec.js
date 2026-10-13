@@ -1,5 +1,5 @@
 const { test, describe, beforeEach, expect } = require('@playwright/test')
-const { loginWith } = require('./helper')
+const { loginWith, createBlog } = require('./helper')
 
 describe('Blog app', () => {
   beforeEach(async ({ page, request }) => {
@@ -48,25 +48,13 @@ describe('Blog app', () => {
       const author = 'Playwright'
       const url = 'http://localhost:5173'
 
-      await page.getByRole('button', { name: 'New blog' }).click()
-      await page.getByRole('textbox', { name: 'title' }).fill(title)
-      await page.getByRole('textbox', { name: 'author' }).fill(author)
-      await page.getByRole('textbox', { name: 'url' }).fill(url)
-      await page.getByRole('button', { name: 'Create' }).click()
+      await createBlog(page, title, author, url)
       await expect(page.getByText(`${title} ${author}`)).toBeVisible()
     })
 
     describe('and a blog exists', () => {
       beforeEach(async ({ page }) => {
-        const title = 'Playwright blog'
-        const author = 'Playwright'
-        const url = 'http://localhost:5173'
-
-        await page.getByRole('button', { name: 'New blog' }).click()
-        await page.getByRole('textbox', { name: 'title' }).fill(title)
-        await page.getByRole('textbox', { name: 'author' }).fill(author)
-        await page.getByRole('textbox', { name: 'url' }).fill(url)
-        await page.getByRole('button', { name: 'Create' }).click()
+        await createBlog(page, 'Playwright blog', 'Playwright', 'http://localhost:5173')
       })
 
       test('user can view blog details', async ({ page }) => {
