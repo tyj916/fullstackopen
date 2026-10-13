@@ -116,6 +116,40 @@ describe('Blog app', () => {
         const blogs = await page.locator('.blog').all()
         expect(blogs).toHaveLength(4)
       })
+
+      test('blogs are sorted by likes count', async ({ page }) => {
+        // 1 like for 'First blog'
+        await page.getByRole('paragraph').filter({ hasText: 'First blog' })
+          .getByRole('button', { name: 'view' }).click()
+        await page.getByRole('button', { name: 'Like' }).click()
+        await page.getByRole('button', { name: 'hide' }).click()
+
+        // 2 likes for 'Second blog'
+        await page.getByRole('paragraph').filter({ hasText: 'Second blog' })
+          .getByRole('button', { name: 'view' }).click()
+        await page.getByRole('button', { name: 'Like' }).click()
+        await page.getByText('Likes: 1').waitFor()
+        await page.getByRole('button', { name: 'Like' }).click()
+        await page.getByRole('button', { name: 'hide' }).click()
+
+        // 3 likes for 'Blog with most likes'
+        await page.getByRole('paragraph').filter({ hasText: 'Blog with most likes' })
+          .getByRole('button', { name: 'view' }).click()
+        await page.getByRole('button', { name: 'Like' }).click()
+        await page.getByText('Likes: 1').waitFor()
+        await page.getByRole('button', { name: 'Like' }).click()
+        await page.getByText('Likes: 2').waitFor()
+        await page.getByRole('button', { name: 'Like' }).click()
+        await page.getByRole('button', { name: 'hide' }).click()
+        
+        // expect blogs are sorted by likes count
+        // 'Blog with most likes' > 'Second blog' > 'First blog' > 'Blog without likes'
+        const blogs = page.locator('.blog')
+        await expect(blogs.nth(0)).toHaveText(/Blog with most likes/)
+        await expect(blogs.nth(1)).toHaveText(/Second blog/)
+        await expect(blogs.nth(2)).toHaveText(/First blog/)
+        await expect(blogs.nth(3)).toHaveText(/Blog without likes/)
+      })
     })
   })
 })
