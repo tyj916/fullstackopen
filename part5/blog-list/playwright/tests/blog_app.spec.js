@@ -13,6 +13,11 @@ describe('Blog app', () => {
   })
 
   test('User can login', async ({ page }) => {
+    await page.getByRole('textbox', { name: 'username' }).fill('root')
+    await page.getByRole('textbox', { name: 'password' }).fill('Sekret')
     await page.getByRole('button', { name: 'Log in' }).click()
+    
+    await expect(page.getByText('Blogs')).toBeVisible()
+    await expect(page.getByText('Superuser logged in')).toBeVisible()
   })
 })
