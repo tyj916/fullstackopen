@@ -13,17 +13,19 @@ describe('Blog app', () => {
     await expect(page.getByRole('button', { name: 'Log in' })).toBeVisible()
   })
 
-  test('User can login', async ({ page }) => {
-    await loginWith(page, 'root', 'Sekret')
+  describe('Login', () => {
+    test('User can login', async ({ page }) => {
+      await loginWith(page, 'root', 'Sekret')
 
-    await expect(page.getByText('Blogs')).toBeVisible()
-    await expect(page.getByText('Superuser logged in')).toBeVisible()
-  })
+      await expect(page.getByText('Blogs')).toBeVisible()
+      await expect(page.getByText('Superuser logged in')).toBeVisible()
+    })
 
-  test('login failed with wrong credentials', async ({ page }) => {
-    await loginWith(page, 'root', 'wrong')
+    test('login failed with wrong credentials', async ({ page }) => {
+      await loginWith(page, 'root', 'wrong')
 
-    await expect(page.getByText('Wrong credentials')).toBeVisible()
-    await expect(page.getByText('Blogs')).not.toBeVisible()
+      await expect(page.getByText('Wrong credentials')).toBeVisible()
+      await expect(page.getByText('Blogs')).not.toBeVisible()
+    })
   })
 })
