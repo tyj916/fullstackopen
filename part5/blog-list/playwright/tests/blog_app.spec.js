@@ -80,6 +80,11 @@ describe('Blog app', () => {
       })
 
       test('only the user who added the blog sees the blog delete button', async ({ page, request }) => {
+        // current user who added the blog can see the remove button
+        await page.getByRole('button', { name: 'view' }).click()
+        await expect(page.getByRole('button', { name: 'Remove' })).toBeVisible()
+
+        // log current user out
         await page.getByRole('button', { name: 'Logout' }).click()
 
         // create new user
