@@ -1,5 +1,5 @@
 const { test, describe, beforeEach, expect } = require('@playwright/test')
-const { loginWith, createBlog } = require('./helper')
+const { initialBlogs, loginWith, createBlog } = require('./helper')
 
 describe('Blog app', () => {
   beforeEach(async ({ page, request }) => {
@@ -102,6 +102,19 @@ describe('Blog app', () => {
         // cannot see the Remove button
         await page.getByRole('button', { name: 'view' }).click()
         await expect(page.getByRole('button', { name: 'Remove' })).not.toBeVisible()
+      })
+    })
+
+    describe('and multiple blogs exists', () => {
+      beforeEach(async ({ page }) => {
+        for (const blog of initialBlogs) {
+          await createBlog(page, blog.title, blog.author, blog.url)
+        }
+      })
+
+      test('blogs can be viewed', async ({ page }) => {
+        const blogs = await page.locator('.blog').all()
+        expect(blogs).toHaveLength(4)
       })
     })
   })
