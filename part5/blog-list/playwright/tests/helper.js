@@ -40,6 +40,11 @@ const likeBlog = async (page, title) => {
   await page.getByRole('paragraph').filter({ hasText: title })
     .getByRole('button', { name: 'view' }).click()
   await page.getByRole('button', { name: 'Like' }).click()
+
+  const likesParagraph = await page.getByText(/Likes: /).innerText()
+  const likesCount = parseInt(likesParagraph.match(/\d+/)[0])
+  await page.getByText(`Likes: ${likesCount}`).waitFor()
+  
   await page.getByRole('button', { name: 'hide' }).click()
 }
 
