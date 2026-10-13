@@ -1,5 +1,5 @@
 const { test, describe, beforeEach, expect } = require('@playwright/test')
-const { initialBlogs, loginWith, createBlog } = require('./helper')
+const { initialBlogs, loginWith, createBlog, likeBlog } = require('./helper')
 
 describe('Blog app', () => {
   beforeEach(async ({ page, request }) => {
@@ -119,28 +119,16 @@ describe('Blog app', () => {
 
       test('blogs are sorted by likes count', async ({ page }) => {
         // 1 like for 'First blog'
-        await page.getByRole('paragraph').filter({ hasText: 'First blog' })
-          .getByRole('button', { name: 'view' }).click()
-        await page.getByRole('button', { name: 'Like' }).click()
-        await page.getByRole('button', { name: 'hide' }).click()
+        await likeBlog(page, 'First blog')
 
         // 2 likes for 'Second blog'
-        await page.getByRole('paragraph').filter({ hasText: 'Second blog' })
-          .getByRole('button', { name: 'view' }).click()
-        await page.getByRole('button', { name: 'Like' }).click()
-        await page.getByText('Likes: 1').waitFor()
-        await page.getByRole('button', { name: 'Like' }).click()
-        await page.getByRole('button', { name: 'hide' }).click()
+        await likeBlog(page, 'Second blog')
+        await likeBlog(page, 'Second blog')
 
         // 3 likes for 'Blog with most likes'
-        await page.getByRole('paragraph').filter({ hasText: 'Blog with most likes' })
-          .getByRole('button', { name: 'view' }).click()
-        await page.getByRole('button', { name: 'Like' }).click()
-        await page.getByText('Likes: 1').waitFor()
-        await page.getByRole('button', { name: 'Like' }).click()
-        await page.getByText('Likes: 2').waitFor()
-        await page.getByRole('button', { name: 'Like' }).click()
-        await page.getByRole('button', { name: 'hide' }).click()
+        await likeBlog(page, 'Blog with most likes')
+        await likeBlog(page, 'Blog with most likes')
+        await likeBlog(page, 'Blog with most likes')
         
         // expect blogs are sorted by likes count
         // 'Blog with most likes' > 'Second blog' > 'First blog' > 'Blog without likes'

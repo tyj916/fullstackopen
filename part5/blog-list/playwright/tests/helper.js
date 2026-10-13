@@ -36,4 +36,11 @@ const createBlog = async (page, title, author, url) => {
   await page.getByText(`${title} ${author}`).waitFor()
 }
 
-export { initialBlogs, loginWith, createBlog }
+const likeBlog = async (page, title) => {
+  await page.getByRole('paragraph').filter({ hasText: title })
+    .getByRole('button', { name: 'view' }).click()
+  await page.getByRole('button', { name: 'Like' }).click()
+  await page.getByRole('button', { name: 'hide' }).click()
+}
+
+export { initialBlogs, loginWith, createBlog, likeBlog }
