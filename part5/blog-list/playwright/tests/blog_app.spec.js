@@ -55,5 +55,26 @@ describe('Blog app', () => {
       await page.getByRole('button', { name: 'Create' }).click()
       await expect(page.getByText(`${title} ${author}`)).toBeVisible()
     })
+
+    describe('and a blog exists', () => {
+      beforeEach(async ({ page }) => {
+        const title = 'Playwright blog'
+        const author = 'Playwright'
+        const url = 'http://localhost:5173'
+
+        await page.getByRole('button', { name: 'New blog' }).click()
+        await page.getByRole('textbox', { name: 'title' }).fill(title)
+        await page.getByRole('textbox', { name: 'author' }).fill(author)
+        await page.getByRole('textbox', { name: 'url' }).fill(url)
+        await page.getByRole('button', { name: 'Create' }).click()
+      })
+
+      test('user can view blog details', async ({ page }) => {
+        await page.getByRole('button', { name: 'view' }).click()
+        await expect(page.getByText('http://localhost:5173')).toBeVisible()
+        await expect(page.getByText(/Likes:/)).toBeVisible()
+        await expect(page.getByText('Playwright Test User', { exact: true })).toBeVisible()
+      })
+    })
   })
 })
