@@ -78,6 +78,26 @@ describe('Blog app', () => {
         await page.getByRole('button', { name: 'Remove' }).click()
         await expect(page.getByText('Playwright blog Playwright')).not.toBeVisible()
       })
+
+      test('only the user who added the blog sees the blog delete button', async ({ page, request }) => {
+        await page.getByRole('button', { name: 'Logout' }).click()
+
+        // create new user
+        await request.post('http://localhost:3003/api/users', {
+          data: {
+            name: 'Playwright User 2',
+            username: 'playwright2',
+            password: 'playwright2'
+          }
+        })
+
+        // login as new user
+        await loginWith(page, 'playwright2', 'playwright2')
+
+        // cannot see the Remove button
+        await page.getByRole('button', { name: 'view' }).click()
+        await expect(page.getByRole('button', { name: 'Remove' })).not.toBeVisible()
+      })
     })
   })
 })
