@@ -35,7 +35,7 @@ describe('Blog app', () => {
       await loginWith(page, 'playwright', 'wrong')
 
       await expect(page.getByText('Wrong credentials')).toBeVisible()
-      await expect(page.getByText('Blogs')).not.toBeVisible()
+      await expect(page.getByText('Login')).toBeVisible()
     })
   })
 
