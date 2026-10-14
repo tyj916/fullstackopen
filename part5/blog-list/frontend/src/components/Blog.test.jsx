@@ -43,6 +43,11 @@ describe('<Blog />', () => {
     expect(name).toBeVisible()
   })
 
+  test('like button is not displayed to unauthenticated user', () => {
+    const button = screen.queryByRole('button', { name: 'Like' })
+    expect(button).not.toBeInTheDocument()
+  })
+
   test('clicking the like button 2 times calls event handler twice', async () => {
     const user = userEvent.setup()
     const viewButton = screen.getByText('view')
