@@ -1,33 +1,18 @@
-import Blog from "./Blog"
-import blogService from '../services/blogs'
+import { Link } from "react-router-dom"
 
-const BlogList = ({ blogs, setBlogs, user }) => {
-  const updateBlog = async (blogObject) => {
-    const updatedBlog = await blogService.update(blogObject)
-    const newBlogs = blogs.map(blog => blog.id === updatedBlog.id ? updatedBlog : blog)
-    setBlogs(newBlogs)
-  }
-
-  const removeBlog = async (blogObject) => {
-    await blogService.remove(blogObject)
-    const newBlogs = blogs.filter(blog => blog.id !== blogObject.id)
-    setBlogs(newBlogs)
-  }
+const BlogList = ({ blogs }) => {
+  const sortedBlogs = blogs.sort((a, b) => b.likes - a.likes);
 
   return (
     <div>
       <h2>Blogs</h2>
-      <div className="blog-list">
-        {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
-          <Blog 
-            key={blog.id} 
-            blog={blog} 
-            user={user}
-            updateBlog={updateBlog} 
-            removeBlog={removeBlog} 
-          />
+      <ul className="blog-list">
+        {sortedBlogs.map(blog =>
+          <li key={blog.id}>
+            <Link to={`/blogs/${blog.id}`}>{`${blog.title} by ${blog.author}`}</Link>
+          </li>
         )}
-      </div>
+      </ul>
     </div>
   )
 }
