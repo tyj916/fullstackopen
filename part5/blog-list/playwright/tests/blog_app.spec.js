@@ -54,13 +54,20 @@ describe('Blog app', () => {
     })
 
     describe('and a blog exists', () => {
+      const blog = {
+        title: 'Playwright blog',
+        author: 'Playwright',
+        url: 'http://localhost:5173'
+      }
+
       beforeEach(async ({ page }) => {
-        await createBlog(page, 'Playwright blog', 'Playwright', 'http://localhost:5173')
+        await createBlog(page, blog.title, blog.author, blog.url)
       })
 
-      test('user can view blog details', async ({ page }) => {
-        await page.getByRole('button', { name: 'view' }).click()
-        await expect(page.getByText('http://localhost:5173')).toBeVisible()
+      test.only('user can view blog details', async ({ page }) => {
+        await page.getByRole('link', { name: `${blog.title} by ${blog.author}` }).click()
+        await expect(page.getByText(`${blog.author}: ${blog.title}`)).toBeVisible()
+        await expect(page.getByText(blog.url)).toBeVisible()
         await expect(page.getByText(/Likes:/)).toBeVisible()
         await expect(page.getByText('Playwright Test User', { exact: true })).toBeVisible()
       })
