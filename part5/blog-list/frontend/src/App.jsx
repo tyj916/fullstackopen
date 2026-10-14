@@ -1,19 +1,18 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
-import Blog from './components/Blog'
+import { Link, Routes, Route } from 'react-router-dom'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
+import BlogList from './components/BlogList'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
   const [notification, setNotification] = useState('')
   const blogFormRef = useRef()
-  const title = user ? 'Blogs' : 'Log in to application'
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -54,18 +53,6 @@ const App = () => {
     blogFormRef.current.toggleVisibility()
   }
 
-  const updateBlog = async (blogObject) => {
-    const updatedBlog = await blogService.update(blogObject)
-    const newBlogs = blogs.map(blog => blog.id === updatedBlog.id ? updatedBlog : blog)
-    setBlogs(newBlogs)
-  }
-
-  const removeBlog = async (blogObject) => {
-    await blogService.remove(blogObject)
-    const newBlogs = blogs.filter(blog => blog.id !== blogObject.id)
-    setBlogs(newBlogs)
-  }
-
   return (
     <div>
       <nav className='navbar'>
@@ -73,7 +60,12 @@ const App = () => {
         <Link to='/login'>Login</Link>
       </nav>
 
-      <h2>{title}</h2>
+      <Routes>
+        <Route path='/blogs' element={
+          <BlogList blogs={blogs} user={user} />
+        } />
+      </Routes>
+
       {/* conditional rendering here instead of inside of component to avoid internal react error */}
       {notification && <Notification notification={notification} setNotification={setNotification} />}
       {!user && <LoginForm login={login} />}
@@ -84,16 +76,6 @@ const App = () => {
           <Togglable buttonLabel='New blog' ref={blogFormRef}>
             <BlogForm addBlog={addBlog}/>
           </Togglable>
-
-          <div className='blog-list'>{blogs.sort((a, b) => b.likes - a.likes).map(blog =>
-            <Blog 
-              key={blog.id} 
-              blog={blog} 
-              user={user}
-              updateBlog={updateBlog} 
-              removeBlog={removeBlog} 
-            />
-          )}</div>
         </div>
       )}
     </div>
