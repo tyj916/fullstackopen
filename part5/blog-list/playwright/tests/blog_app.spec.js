@@ -64,7 +64,7 @@ describe('Blog app', () => {
         await createBlog(page, blog.title, blog.author, blog.url)
       })
 
-      test.only('user can view blog details', async ({ page }) => {
+      test('user can view blog details', async ({ page }) => {
         await page.getByRole('link', { name: `${blog.title} by ${blog.author}` }).click()
         await expect(page.getByText(`${blog.author}: ${blog.title}`)).toBeVisible()
         await expect(page.getByText(blog.url)).toBeVisible()
@@ -72,8 +72,8 @@ describe('Blog app', () => {
         await expect(page.getByText('Playwright Test User', { exact: true })).toBeVisible()
       })
 
-      test('user can like the blog', async ({ page }) => {
-        await page.getByRole('button', { name: 'view' }).click()
+      test.only('user can like the blog', async ({ page }) => {
+        await page.getByRole('link', { name: `${blog.title} by ${blog.author}` }).click()
         await page.getByRole('button', { name: 'like' }).click()
         await expect(page.getByText('Likes: 1')).toBeVisible()
       })
