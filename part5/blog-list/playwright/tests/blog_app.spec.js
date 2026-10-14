@@ -15,7 +15,7 @@ describe('Blog app', () => {
     await page.goto('http://localhost:5173')
   })
 
-  test.only('Login form is shown', async ({ page }) => {
+  test('Login form is shown', async ({ page }) => {
     await page.getByText('Login').click()
     await expect(page.getByText('Log in to application')).toBeVisible()
     await expect(page.getByRole('textbox', { name: 'username' })).toBeVisible()
@@ -23,12 +23,12 @@ describe('Blog app', () => {
     await expect(page.getByRole('button', { name: 'Log in' })).toBeVisible()
   })
 
-  describe('Login', () => {
+  describe.only('Login', () => {
     test('User can login', async ({ page }) => {
       await loginWith(page, 'playwright', 'playwright')
 
-      await expect(page.getByText('Blogs')).toBeVisible()
-      await expect(page.getByText('Playwright Test User logged in')).toBeVisible()
+      await expect(page.getByRole('heading', { name: 'Blogs' })).toBeVisible()
+      await expect(page.getByText('Logout')).toBeVisible()
     })
 
     test('login failed with wrong credentials', async ({ page }) => {
