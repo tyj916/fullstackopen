@@ -122,7 +122,7 @@ describe('Blog app', () => {
       })
 
       test('blogs can be viewed', async ({ page }) => {
-        const blogs = await page.locator('.blog').all()
+        const blogs = await page.locator('.blog-list').getByRole('link').all()
         expect(blogs).toHaveLength(4)
       })
 
