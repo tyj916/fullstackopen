@@ -1,13 +1,4 @@
-import { useState } from 'react'
-
 const Blog = ({ blog, user, updateBlog, removeBlog }) => {
-  const [visible, setVisible] = useState(false)
-  const label = visible ? 'hide' : 'view'
-
-  const toggleDetails = () => {
-    setVisible(!visible)
-  }
-
   const handleLike = () => {
     const newBlog = {
       ...blog,
@@ -26,13 +17,11 @@ const Blog = ({ blog, user, updateBlog, removeBlog }) => {
 
   return (
     <div>
-      <p>{blog.title} {blog.author} <button onClick={toggleDetails}>{label}</button></p>
-      {visible && <>
-        <p>{blog.url}</p>
-        <p>Likes: {blog.likes} <button onClick={handleLike}>Like</button></p>
-        <p>{blog.user.name}</p>
-        {blog.user.id === user.id && <button onClick={handleRemove}>Remove</button>}
-      </>}
+      <h2>{blog.author}: {blog.title}</h2>
+      <p>{blog.url}</p>
+      <p>Likes: {blog.likes} <button onClick={handleLike}>Like</button></p>
+      <p>{blog.user.name}</p>
+      {blog.user.id === user.id && <button onClick={handleRemove}>Remove</button>}
     </div>
   )
 }
