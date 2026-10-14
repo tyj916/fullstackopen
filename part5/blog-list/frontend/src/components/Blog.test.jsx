@@ -8,6 +8,7 @@ const blog = {
   url: 'http://localhost:3003/',
   likes: 1,
   user: {
+    id: 'god',
     name: 'Username'
   }
 }
@@ -49,6 +50,7 @@ describe('<Blog />', () => {
   describe('when a user is logged in', () => {
     beforeEach(async () => {
       const user = {
+        id: 'root',
         username: 'root',
         name: 'Superuser',
       }
@@ -59,6 +61,11 @@ describe('<Blog />', () => {
     test('like button is shown', () => {
       const button = screen.getByRole('button', { name: 'Like' })
       expect(button).toBeVisible()
+    })
+
+    test('remove button is not shown to non creator', () => {
+      const button = screen.queryByRole('button', { name: 'Remove' })
+      expect(button).not.toBeInTheDocument()
     })
 
     test('clicking the like button 2 times calls event handler twice', async () => {
