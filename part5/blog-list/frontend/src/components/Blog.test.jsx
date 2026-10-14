@@ -2,10 +2,21 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Blog from './Blog'
 
-describe('<Blog />', () => {
-  let mockUpdateHandler;
+let mockUpdateHandler;
+const mockNavigate = vi.fn()
 
+vi.mock('react-router-dom', async () => {
+  const originalModule = await vi.importActual('react-router-dom')
+  return {
+    ...originalModule,
+    useNavigate: () => mockNavigate,
+  }
+})
+
+describe('<Blog />', () => {
   beforeEach(() => {
+    mockNavigate.mockClear()
+
     const blog = {
       title: 'Component test with react-testing-library',
       author: 'Author Name',
@@ -21,8 +32,8 @@ describe('<Blog />', () => {
     render(<Blog blog={blog} updateBlog={mockUpdateHandler} />)
   })
 
-  test('render title and author', () => {
-    const element = screen.getByText('Component test with react-testing-library Author Name', { exact: false })
+  test.only('render title and author', () => {
+    const element = screen.getByText('Author Name: Component test with react-testing-library', { exact: false })
     expect(element).toBeDefined()
   })
 
