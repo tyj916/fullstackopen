@@ -31,16 +31,16 @@ describe('<Blog />', () => {
     render(<Blog blog={blog} updateBlog={mockUpdateHandler} />)
   })
 
-  test.only('render blog', () => {
+  test('render blog', () => {
     const title = screen.getByText('Author Name: Component test with react-testing-library')
     const url = screen.getByText('http://localhost:3003/')
     const likes = screen.getByText('Likes: 1')
     const name = screen.getByText('Username')
 
-    expect(title).toBeDefined()
-    expect(url).toBeDefined()
-    expect(likes).toBeDefined()
-    expect(name).toBeDefined()
+    expect(title).toBeVisible()
+    expect(url).toBeVisible()
+    expect(likes).toBeVisible()
+    expect(name).toBeVisible()
   })
 
   test('at start the blog details are not displayed', () => {
