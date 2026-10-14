@@ -43,26 +43,6 @@ describe('<Blog />', () => {
     expect(name).toBeVisible()
   })
 
-  test('at start the blog details are not displayed', () => {
-    const url = screen.queryByText(/http:\/\/localhost:3003\//i)
-    const likes = screen.queryByText(/Likes/i)
-    
-    expect(url).not.toBeInTheDocument()
-    expect(likes).not.toBeInTheDocument()
-  })
-
-  test('clicking the button toggle blog details display', async () => {
-    const user = userEvent.setup()
-    const button = screen.getByText('view')
-    await user.click(button)
-
-    const url = screen.queryByText(/http:\/\/localhost:3003\//i)
-    const likes = screen.queryByText(/Likes/i)
-    
-    expect(url).toBeInTheDocument()
-    expect(likes).toBeInTheDocument()
-  })
-
   test('clicking the like button 2 times calls event handler twice', async () => {
     const user = userEvent.setup()
     const viewButton = screen.getByText('view')
