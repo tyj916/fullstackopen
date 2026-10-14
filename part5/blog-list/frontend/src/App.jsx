@@ -77,7 +77,6 @@ const App = () => {
         {user ? <button onClick={logout}>Logout</button> : <Link to='/login'>Login</Link>}
       </nav>
 
-      {/* conditional rendering here instead of inside of component to avoid internal react error */}
       {notification && <Notification notification={notification} setNotification={setNotification} />}
 
       <Routes>
