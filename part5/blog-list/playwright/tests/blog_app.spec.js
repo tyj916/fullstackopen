@@ -23,7 +23,7 @@ describe('Blog app', () => {
     await expect(page.getByRole('button', { name: 'Log in' })).toBeVisible()
   })
 
-  describe.only('Login', () => {
+  describe('Login', () => {
     test('User can login', async ({ page }) => {
       await loginWith(page, 'playwright', 'playwright')
 
@@ -50,7 +50,7 @@ describe('Blog app', () => {
       const url = 'http://localhost:5173'
 
       await createBlog(page, title, author, url)
-      await expect(page.getByText(`${title} ${author}`)).toBeVisible()
+      await expect(page.getByRole('link', { name: `${title} by ${author}` })).toBeVisible()
     })
 
     describe('and a blog exists', () => {
