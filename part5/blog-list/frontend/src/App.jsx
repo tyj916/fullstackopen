@@ -74,6 +74,7 @@ const App = () => {
     <div>
       <nav className='navbar'>
         <Link to='/'>Blogs</Link>
+        {user && <Link to='/create'>New Blog</Link>}
         {user ? <button onClick={logout}>Logout</button> : <Link to='/login'>Login</Link>}
       </nav>
 
@@ -96,18 +97,14 @@ const App = () => {
           />
         } />
 
+        <Route path='/create' element={
+          <BlogForm addBlog={addBlog} />
+        } />
+
         <Route path='/login' element={
           <LoginForm login={login} />
         } />
       </Routes>
-
-      {user && (
-        <div>
-          <Togglable buttonLabel='New blog' ref={blogFormRef}>
-            <BlogForm addBlog={addBlog}/>
-          </Togglable>
-        </div>
-      )}
     </div>
   )
 }
