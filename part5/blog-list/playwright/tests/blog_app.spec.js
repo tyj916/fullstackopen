@@ -15,7 +15,8 @@ describe('Blog app', () => {
     await page.goto('http://localhost:5173')
   })
 
-  test('Login form is shown', async ({ page }) => {
+  test.only('Login form is shown', async ({ page }) => {
+    await page.getByText('Login').click()
     await expect(page.getByText('Log in to application')).toBeVisible()
     await expect(page.getByRole('textbox', { name: 'username' })).toBeVisible()
     await expect(page.getByRole('textbox', { name: 'password' })).toBeVisible()
