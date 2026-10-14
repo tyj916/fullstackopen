@@ -2,6 +2,15 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Blog from './Blog'
 
+const blog = {
+  title: 'Component test with react-testing-library',
+  author: 'Author Name',
+  url: 'http://localhost:3003/',
+  likes: 1,
+  user: {
+    name: 'Username'
+  }
+}
 const mockUpdateHandler = vi.fn()
 const mockNavigate = vi.fn()
 
@@ -17,17 +26,6 @@ describe('<Blog />', () => {
   beforeEach(() => {
     mockUpdateHandler.mockClear()
     mockNavigate.mockClear()
-
-    const blog = {
-      title: 'Component test with react-testing-library',
-      author: 'Author Name',
-      url: 'http://localhost:3003/',
-      likes: 1,
-      user: {
-        name: 'Username'
-      }
-    }
-
     render(<Blog blog={blog} updateBlog={mockUpdateHandler} />)
   })
 
@@ -46,6 +44,22 @@ describe('<Blog />', () => {
   test('like button is not displayed to unauthenticated user', () => {
     const button = screen.queryByRole('button', { name: 'Like' })
     expect(button).not.toBeInTheDocument()
+  })
+
+  describe('when a user is logged in', () => {
+    beforeEach(async () => {
+      const user = {
+        username: 'root',
+        name: 'Superuser',
+      }
+
+      render(<Blog blog={blog} user={user} updateBlog={mockUpdateHandler} />)
+    })
+
+    test('like button is shown', () => {
+      const button = screen.getByRole('button', { name: 'Like' })
+      expect(button).toBeVisible()
+    })
   })
 
   test('clicking the like button 2 times calls event handler twice', async () => {
