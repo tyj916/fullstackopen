@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, Routes, Route, useMatch } from 'react-router-dom'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -6,14 +6,12 @@ import Blog from './components/Blog'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
-import Togglable from './components/Togglable'
 import BlogList from './components/BlogList'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
   const [notification, setNotification] = useState('')
-  const blogFormRef = useRef()
   const match = useMatch('/blogs/:id')
   const blog = match
     ? blogs.find(blog => blog.id === match.params.id)
@@ -55,7 +53,6 @@ const App = () => {
     const returnedBlog = await blogService.create(blogObject)
     setBlogs(blogs.concat(returnedBlog))
     setNotification(`A new blog ${returnedBlog.title} by ${returnedBlog.author} is added`)
-    blogFormRef.current.toggleVisibility()
   }
 
   const updateBlog = async (blogObject) => {
