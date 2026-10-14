@@ -2,10 +2,21 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import BlogForm from './BlogForm'
 
+const mockNavigate = vi.fn()
+
+vi.mock('react-router-dom', async () => {
+  const originalModule = await vi.importActual('react-router-dom')
+  return {
+    ...originalModule,
+    useNavigate: () => mockNavigate,
+  }
+})
+
 describe('<BlogForm />', () => {
   let addBlog
 
   beforeEach(() => {
+    mockNavigate.mockClear()
     addBlog = vi.fn()
     render(<BlogForm addBlog={addBlog} />)
   })
