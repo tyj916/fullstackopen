@@ -57,7 +57,7 @@ const App = () => {
     <div>
       <nav className='navbar'>
         <Link to='/blogs'>Blogs</Link>
-        <Link to='/login'>Login</Link>
+        {user ? <button onClick={logout}>Logout</button> : <Link to='/login'>Login</Link>}
       </nav>
 
       {/* conditional rendering here instead of inside of component to avoid internal react error */}
@@ -74,8 +74,6 @@ const App = () => {
 
       {user && (
         <div>
-          <p>{user.name} logged in <button onClick={logout}>Logout</button></p>
-
           <Togglable buttonLabel='New blog' ref={blogFormRef}>
             <BlogForm addBlog={addBlog}/>
           </Togglable>
