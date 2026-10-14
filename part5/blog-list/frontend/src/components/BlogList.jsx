@@ -1,7 +1,7 @@
 import Blog from "./Blog"
 import blogService from '../services/blogs'
 
-const BlogList = ({ blogs, user }) => {
+const BlogList = ({ blogs, setBlogs, user }) => {
   const updateBlog = async (blogObject) => {
     const updatedBlog = await blogService.update(blogObject)
     const newBlogs = blogs.map(blog => blog.id === updatedBlog.id ? updatedBlog : blog)

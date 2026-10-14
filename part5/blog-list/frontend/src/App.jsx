@@ -65,8 +65,12 @@ const App = () => {
 
       <Routes>
         <Route path='/' element={
-          <BlogList blogs={blogs} user={user} />
+          <BlogList 
+            blogs={blogs} 
+            setBlogs={setBlogs} 
+            user={user} />
         } />
+        
         <Route path='/login' element={
           <LoginForm login={login} />
         } />
