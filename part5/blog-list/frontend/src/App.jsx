@@ -64,11 +64,13 @@ const App = () => {
         <Route path='/blogs' element={
           <BlogList blogs={blogs} user={user} />
         } />
+        <Route path='/login' element={
+          <LoginForm login={login} />
+        } />
       </Routes>
 
       {/* conditional rendering here instead of inside of component to avoid internal react error */}
       {notification && <Notification notification={notification} setNotification={setNotification} />}
-      {!user && <LoginForm login={login} />}
       {user && (
         <div>
           <p>{user.name} logged in <button onClick={logout}>Logout</button></p>
