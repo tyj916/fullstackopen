@@ -56,7 +56,7 @@ const App = () => {
   return (
     <div>
       <nav className='navbar'>
-        <Link to='/blogs'>Blogs</Link>
+        <Link to='/'>Blogs</Link>
         {user ? <button onClick={logout}>Logout</button> : <Link to='/login'>Login</Link>}
       </nav>
 
@@ -64,7 +64,7 @@ const App = () => {
       {notification && <Notification notification={notification} setNotification={setNotification} />}
 
       <Routes>
-        <Route path='/blogs' element={
+        <Route path='/' element={
           <BlogList blogs={blogs} user={user} />
         } />
         <Route path='/login' element={
