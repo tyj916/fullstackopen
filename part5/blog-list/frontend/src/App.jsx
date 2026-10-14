@@ -65,6 +65,7 @@ const App = () => {
     await blogService.remove(blogObject)
     const newBlogs = blogs.filter(blog => blog.id !== blogObject.id)
     setBlogs(newBlogs)
+    setNotification(`${blogObject.title} by ${blogObject.author} has been deleted`)
   }
 
   return (
