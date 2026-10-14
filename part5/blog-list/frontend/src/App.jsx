@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -67,6 +68,11 @@ const App = () => {
 
   return (
     <div>
+      <nav className='navbar'>
+        <Link to='/blogs'>Blogs</Link>
+        <Link to='/login'>Login</Link>
+      </nav>
+
       <h2>{title}</h2>
       {/* conditional rendering here instead of inside of component to avoid internal react error */}
       {notification && <Notification notification={notification} setNotification={setNotification} />}
