@@ -72,19 +72,20 @@ describe('Blog app', () => {
         await expect(page.getByText('Playwright Test User', { exact: true })).toBeVisible()
       })
 
-      test.only('user can like the blog', async ({ page }) => {
+      test('user can like the blog', async ({ page }) => {
         await page.getByRole('link', { name: `${blog.title} by ${blog.author}` }).click()
         await page.getByRole('button', { name: 'like' }).click()
         await expect(page.getByText('Likes: 1')).toBeVisible()
       })
 
-      test('user added the blog can delete the blog', async ({ page }) => {
+      test.only('user added the blog can delete the blog', async ({ page }) => {
         // handle window.confirm()
         page.on('dialog', dialog => dialog.accept())
 
-        await page.getByRole('button', { name: 'view' }).click()
+        await page.getByRole('link', { name: `${blog.title} by ${blog.author}` }).click()
         await page.getByRole('button', { name: 'Remove' }).click()
-        await expect(page.getByText('Playwright blog Playwright')).not.toBeVisible()
+        await expect(page.getByText(`${blog.title} by ${blog.author} has been deleted`)).toBeVisible()
+        await expect(page.getByRole('link', { name: `${blog.title} by ${blog.author}` })).not.toBeVisible()
       })
 
       test('only the user who added the blog sees the blog delete button', async ({ page, request }) => {
