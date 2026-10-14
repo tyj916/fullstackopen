@@ -60,17 +60,14 @@ describe('<Blog />', () => {
       const button = screen.getByRole('button', { name: 'Like' })
       expect(button).toBeVisible()
     })
-  })
 
-  test('clicking the like button 2 times calls event handler twice', async () => {
-    const user = userEvent.setup()
-    const viewButton = screen.getByText('view')
-    await user.click(viewButton);
+    test('clicking the like button 2 times calls event handler twice', async () => {
+      const user = userEvent.setup()
+      const likeButton = screen.getByText('Like')
+      await user.click(likeButton)
+      await user.click(likeButton)
 
-    const likeButton = screen.getByText('Like')
-    await user.click(likeButton)
-    await user.click(likeButton)
-
-    expect(mockUpdateHandler.mock.calls).toHaveLength(2)
+      expect(mockUpdateHandler.mock.calls).toHaveLength(2)
+    })
   })
 })
