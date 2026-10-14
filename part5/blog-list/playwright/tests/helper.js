@@ -37,16 +37,10 @@ const createBlog = async (page, title, author, url) => {
   await page.getByText(`A new blog ${title} by ${author}`).waitFor()
 }
 
-const likeBlog = async (page, title) => {
-  await page.getByRole('paragraph').filter({ hasText: title })
-    .getByRole('button', { name: 'view' }).click()
+const likeBlog = async (page, blog) => {
+  await page.getByRole('link', { name: `${blog.title} by ${blog.author}` }).click()
   await page.getByRole('button', { name: 'Like' }).click()
-
-  const likesParagraph = await page.getByText(/Likes: /).innerText()
-  const likesCount = parseInt(likesParagraph.match(/\d+/)[0])
-  await page.getByText(`Likes: ${likesCount}`).waitFor()
-  
-  await page.getByRole('button', { name: 'hide' }).click()
+  await page.getByRole('link', { name: 'Blogs' }).click()
 }
 
 export { initialBlogs, loginWith, createBlog, likeBlog }

@@ -126,26 +126,28 @@ describe('Blog app', () => {
         expect(blogs).toHaveLength(4)
       })
 
-      test('blogs are sorted by likes count', async ({ page }) => {
+      test.only('blogs are sorted by likes count', async ({ page }) => {
         // 1 like for 'First blog'
-        await likeBlog(page, 'First blog')
+        await likeBlog(page, initialBlogs[0])
 
         // 2 likes for 'Second blog'
-        await likeBlog(page, 'Second blog')
-        await likeBlog(page, 'Second blog')
+        await likeBlog(page, initialBlogs[1])
+        await likeBlog(page, initialBlogs[1])
 
         // 3 likes for 'Blog with most likes'
-        await likeBlog(page, 'Blog with most likes')
-        await likeBlog(page, 'Blog with most likes')
-        await likeBlog(page, 'Blog with most likes')
+        await likeBlog(page, initialBlogs[2])
+        await likeBlog(page, initialBlogs[2])
+        await likeBlog(page, initialBlogs[2])
+
+        await page.getByRole('link', { name: 'Blogs' }).click()
         
         // expect blogs are sorted by likes count
         // 'Blog with most likes' > 'Second blog' > 'First blog' > 'Blog without likes'
-        const blogs = page.locator('.blog')
-        await expect(blogs.nth(0)).toHaveText(/Blog with most likes/)
-        await expect(blogs.nth(1)).toHaveText(/Second blog/)
-        await expect(blogs.nth(2)).toHaveText(/First blog/)
-        await expect(blogs.nth(3)).toHaveText(/Blog without likes/)
+        const blogList = page.locator('.blog-list')
+        await expect(blogList.getByRole('link').nth(0)).toHaveText('Blog with most likes by Playwright')
+        await expect(blogList.getByRole('link').nth(1)).toHaveText('Second blog by Playwrong')
+        await expect(blogList.getByRole('link').nth(2)).toHaveText('First blog by Playwright')
+        await expect(blogList.getByRole('link').nth(3)).toHaveText('Blog without likes by Playwright')
       })
     })
   })
