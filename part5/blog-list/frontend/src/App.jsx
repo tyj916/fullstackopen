@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link, Routes, Route } from 'react-router-dom'
+import { Link, Routes, Route, useMatch } from 'react-router-dom'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import Blog from './components/Blog'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
@@ -13,6 +14,10 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [notification, setNotification] = useState('')
   const blogFormRef = useRef()
+  const match = useMatch('/blogs/:id')
+  const blog = match
+    ? blogs.find(blog => blog.id === match.params.id)
+    : null
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -53,6 +58,18 @@ const App = () => {
     blogFormRef.current.toggleVisibility()
   }
 
+  const updateBlog = async (blogObject) => {
+    const updatedBlog = await blogService.update(blogObject)
+    const newBlogs = blogs.map(blog => blog.id === updatedBlog.id ? updatedBlog : blog)
+    setBlogs(newBlogs)
+  }
+
+  const removeBlog = async (blogObject) => {
+    await blogService.remove(blogObject)
+    const newBlogs = blogs.filter(blog => blog.id !== blogObject.id)
+    setBlogs(newBlogs)
+  }
+
   return (
     <div>
       <nav className='navbar'>
@@ -70,7 +87,16 @@ const App = () => {
             setBlogs={setBlogs} 
             user={user} />
         } />
-        
+
+        <Route path='/blogs/:id' element={
+          <Blog 
+            blog={blog} 
+            user={user}
+            updateBlog={updateBlog} 
+            removeBlog={removeBlog} 
+          />
+        } />
+
         <Route path='/login' element={
           <LoginForm login={login} />
         } />
