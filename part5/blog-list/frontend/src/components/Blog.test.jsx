@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Blog from './Blog'
 
-let mockUpdateHandler;
+const mockUpdateHandler = vi.fn()
 const mockNavigate = vi.fn()
 
 vi.mock('react-router-dom', async () => {
@@ -15,6 +15,7 @@ vi.mock('react-router-dom', async () => {
 
 describe('<Blog />', () => {
   beforeEach(() => {
+    mockUpdateHandler.mockClear()
     mockNavigate.mockClear()
 
     const blog = {
@@ -26,8 +27,6 @@ describe('<Blog />', () => {
         name: 'Username'
       }
     }
-
-    mockUpdateHandler = vi.fn()
 
     render(<Blog blog={blog} updateBlog={mockUpdateHandler} />)
   })
