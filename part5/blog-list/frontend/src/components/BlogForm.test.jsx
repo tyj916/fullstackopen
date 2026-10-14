@@ -13,11 +13,11 @@ vi.mock('react-router-dom', async () => {
 })
 
 describe('<BlogForm />', () => {
-  let addBlog
+  const addBlog = vi.fn()
 
   beforeEach(() => {
+    addBlog.mockClear()
     mockNavigate.mockClear()
-    addBlog = vi.fn()
     render(<BlogForm addBlog={addBlog} />)
   })
 
