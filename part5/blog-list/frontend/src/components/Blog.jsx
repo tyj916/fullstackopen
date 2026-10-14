@@ -1,5 +1,9 @@
+import { useNavigate } from "react-router-dom"
+
 const Blog = ({ blog, user, updateBlog, removeBlog }) => {
   if (!blog) return null
+
+  const navigate = useNavigate()
 
   const handleLike = () => {
     const newBlog = {
@@ -14,6 +18,7 @@ const Blog = ({ blog, user, updateBlog, removeBlog }) => {
     const confirm = window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)
     if (confirm) {
       removeBlog(blog)
+      navigate('/')
     }
   }
 
