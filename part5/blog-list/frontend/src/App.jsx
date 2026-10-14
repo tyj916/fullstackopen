@@ -60,6 +60,9 @@ const App = () => {
         <Link to='/login'>Login</Link>
       </nav>
 
+      {/* conditional rendering here instead of inside of component to avoid internal react error */}
+      {notification && <Notification notification={notification} setNotification={setNotification} />}
+
       <Routes>
         <Route path='/blogs' element={
           <BlogList blogs={blogs} user={user} />
@@ -69,8 +72,6 @@ const App = () => {
         } />
       </Routes>
 
-      {/* conditional rendering here instead of inside of component to avoid internal react error */}
-      {notification && <Notification notification={notification} setNotification={setNotification} />}
       {user && (
         <div>
           <p>{user.name} logged in <button onClick={logout}>Logout</button></p>
