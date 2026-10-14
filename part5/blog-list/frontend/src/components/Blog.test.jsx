@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Blog from './Blog'
+import { describe } from 'vitest'
 
 const blog = {
   title: 'Component test with react-testing-library',
@@ -48,7 +49,7 @@ describe('<Blog />', () => {
   })
 
   describe('when a user is logged in', () => {
-    beforeEach(async () => {
+    beforeEach(() => {
       const user = {
         id: 'root',
         username: 'root',
@@ -75,6 +76,23 @@ describe('<Blog />', () => {
       await user.click(likeButton)
 
       expect(mockUpdateHandler.mock.calls).toHaveLength(2)
+    })
+
+    describe('and the user is creator', () => {
+      beforeEach(() => {
+        const user = {
+          id: 'god',
+          username: 'Username',
+          name: 'Username',
+        }
+
+        render(<Blog blog={blog} user={user} updateBlog={mockUpdateHandler} />)
+      })
+
+      test('blog creator is shown the remove button', () => {
+        const button = screen.getByRole('button', { name: 'Remove' })
+        expect(button).toBeVisible()
+      })
     })
   })
 })
