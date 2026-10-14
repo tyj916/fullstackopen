@@ -1,4 +1,6 @@
 const Blog = ({ blog, user, updateBlog, removeBlog }) => {
+  if (!blog) return null
+
   const handleLike = () => {
     const newBlog = {
       ...blog,
