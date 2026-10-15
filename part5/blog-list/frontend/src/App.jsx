@@ -73,7 +73,13 @@ const App = () => {
     <Container>
       <AppBar position='static'>
         <Toolbar>
-          <Typography variant='h1' sx={{ fontSize: "2em" , flexGrow: 1 }}>Blog App</Typography>
+          <Typography variant='h1' sx={{ fontSize: "2em", flexGrow: 1 }}>
+            <Button 
+              color='inherit' 
+              component={Link} to='/' 
+              sx={{ fontSize: 'inherit', textTransform: 'none' }}
+            >Blog App</Button>
+          </Typography>
           <Button color='inherit' component={Link} to='/'>Blogs</Button>
           {user && <Button color='inherit' component={Link} to='/create'>New Blog</Button>}
           {user 
