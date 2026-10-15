@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { TextField, Button } from '@mui/material'
 
 const BlogForm = ({ addBlog }) => {
   const [title, setTitle] = useState('')
@@ -21,31 +22,40 @@ const BlogForm = ({ addBlog }) => {
       <h2>Create New</h2>
       <form onSubmit={handleSubmit}>
         <p>
-          <label htmlFor="title">Title</label>
-          <input
-            id="title"
-            type="text"
+          <TextField
+            label="Title"
             value={title}
-            onChange={(e) => setTitle(e.target.value)} />
+            onChange={(e) => setTitle(e.target.value)} 
+            variant='outlined'
+            size='small'
+            margin='dense'
+            sx={{ width: 'min(100%, 400px)' }}
+          />
         </p>
         <p>
-          <label htmlFor="author">Author</label>
-          <input
-            id="author"
-            type="text"
+          <TextField
+            label="Author"
             value={author}
-            onChange={(e) => setAuthor(e.target.value)} />
+            onChange={(e) => setAuthor(e.target.value)} 
+            variant='outlined'
+            size='small'
+            margin='dense'
+            sx={{ width: 'min(100%, 400px)' }}
+          />
         </p>
         <p>
-          <label htmlFor="url">Url</label>
-          <input
-            id="url"
-            type="text"
+          <TextField
+            label="Url"
             value={url}
-            onChange={(e) => setUrl(e.target.value)} />
+            onChange={(e) => setUrl(e.target.value)} 
+            variant='outlined'
+            size='small'
+            margin='dense'
+            sx={{ width: 'min(100%, 400px)' }}
+          />
         </p>
 
-        <button type='submit'>Create</button>
+        <Button type='submit' variant='contained' style={{ marginTop: 10 }}>Create</Button>
       </form>
     </div>
   )
