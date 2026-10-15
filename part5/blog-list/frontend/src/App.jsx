@@ -12,7 +12,7 @@ import { Container, AppBar, Toolbar, Button, Typography } from '@mui/material'
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
-  const [notification, setNotification] = useState('')
+  const [notification, setNotification] = useState(null)
   const match = useMatch('/blogs/:id')
   const blog = match
     ? blogs.find(blog => blog.id === match.params.id)
@@ -40,20 +40,20 @@ const App = () => {
       blogService.setToken(user.token)
       setUser(user)
     } catch {
-      setNotification('Wrong credentials')
+      setNotification({ text: 'Wrong credentials', type: 'error'})
     }
   }
 
   const logout = () => {
     window.localStorage.removeItem('loggedBlogAppUser')
-    setNotification('Successfully logged out')
+    setNotification({ text: 'Successfully logged out', type: 'success'})
     setUser(null)
   }
 
   const addBlog = async (blogObject) => {
     const returnedBlog = await blogService.create(blogObject)
     setBlogs(blogs.concat(returnedBlog))
-    setNotification(`A new blog ${returnedBlog.title} by ${returnedBlog.author} is added`)
+    setNotification({ text: `A new blog ${returnedBlog.title} by ${returnedBlog.author} is added`, type: 'success'})
   }
 
   const updateBlog = async (blogObject) => {
@@ -66,7 +66,7 @@ const App = () => {
     await blogService.remove(blogObject)
     const newBlogs = blogs.filter(blog => blog.id !== blogObject.id)
     setBlogs(newBlogs)
-    setNotification(`${blogObject.title} by ${blogObject.author} has been deleted`)
+    setNotification({text: `${blogObject.title} by ${blogObject.author} has been deleted`, type: 'success'})
   }
 
   return (
@@ -83,7 +83,7 @@ const App = () => {
         </Toolbar>
       </AppBar>
 
-      {notification && <Notification notification={notification} setNotification={setNotification} />}
+      <Notification notification={notification} setNotification={setNotification} />
 
       <Routes>
         <Route path='/' element={

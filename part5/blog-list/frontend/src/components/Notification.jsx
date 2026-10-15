@@ -1,20 +1,23 @@
 import { useEffect } from 'react'
+import { Alert } from '@mui/material'
 
 const Notification = ({ notification, setNotification }) => {
   useEffect(() => {
     if (!notification) return
 
     const timer = setTimeout(() => {
-      setNotification('')
+      setNotification(null)
     }, 5000)
 
     return () => clearTimeout(timer)
   }, [notification, setNotification])
 
+  if (!notification) return null
+
   return (
-    <div className='notification'>
-      <p>{notification}</p>
-    </div>
+    <Alert severity={notification.type}>
+      <p>{notification.text}</p>
+    </Alert>
   )
 }
 
