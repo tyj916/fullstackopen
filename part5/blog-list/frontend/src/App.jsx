@@ -7,6 +7,7 @@ import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
 import BlogList from './components/BlogList'
+import { Container } from '@mui/material'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -69,7 +70,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <Container>
       <nav className='navbar'>
         <Link to='/'>Blogs</Link>
         {user && <Link to='/create'>New Blog</Link>}
@@ -103,7 +104,7 @@ const App = () => {
           <LoginForm login={login} />
         } />
       </Routes>
-    </div>
+    </Container>
   )
 }
 
