@@ -7,7 +7,7 @@ import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
 import BlogList from './components/BlogList'
-import { Container } from '@mui/material'
+import { Container, AppBar, Toolbar, Button, Typography } from '@mui/material'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -71,11 +71,17 @@ const App = () => {
 
   return (
     <Container>
-      <nav className='navbar'>
-        <Link to='/'>Blogs</Link>
-        {user && <Link to='/create'>New Blog</Link>}
-        {user ? <button onClick={logout}>Logout</button> : <Link to='/login'>Login</Link>}
-      </nav>
+      <AppBar position='static'>
+        <Toolbar>
+          <Typography variant='h1' component='div' sx={{ fontSize: "2em" , flexGrow: 1 }}>Blog App</Typography>
+          <Button color='inherit' element={Link} to='/'>Blogs</Button>
+          {user && <Button color='inherit' element={Link} to='/create'>New Blog</Button>}
+          {user 
+            ? <Button color='inherit' onClick={logout}>Logout</Button> 
+            : <Button color='inherit' element={Link} to='/login'>Login</Button>
+          }
+        </Toolbar>
+      </AppBar>
 
       {notification && <Notification notification={notification} setNotification={setNotification} />}
 
