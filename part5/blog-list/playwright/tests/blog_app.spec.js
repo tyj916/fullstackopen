@@ -126,7 +126,7 @@ describe('Blog app', () => {
         expect(blogs).toHaveLength(4)
       })
 
-      test.only('blogs are sorted by likes count', async ({ page }) => {
+      test('blogs are sorted by likes count', async ({ page }) => {
         // 1 like for 'First blog'
         await likeBlog(page, initialBlogs[0])
 
