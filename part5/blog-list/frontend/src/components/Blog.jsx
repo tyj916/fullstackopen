@@ -1,9 +1,10 @@
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { Box, Button, Paper, Stack, Typography } from "@mui/material"
 
 const Blog = ({ blog, user, updateBlog, removeBlog }) => {
-  if (!blog) return null
-
   const navigate = useNavigate()
+
+  if (!blog) return null
 
   const handleLike = () => {
     const newBlog = {
@@ -23,16 +24,25 @@ const Blog = ({ blog, user, updateBlog, removeBlog }) => {
   }
 
   return (
-    <div className="blog">
-      <h2>{blog.author}: {blog.title}</h2>
-      <p>{blog.url}</p>
-      <p>
-        Likes: {blog.likes} {' '}
-        {user && <button onClick={handleLike}>Like</button>}
-      </p>
-      <p>{blog.user.name}</p>
-      {user && blog.user.id === user.id && <button onClick={handleRemove}>Remove</button>}
-    </div>
+    <Box component={Paper} sx={{ padding: 2, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <Typography variant="h2" sx={{ fontSize: '2em', fontWeight: 'bold' }}>
+        {blog.title}
+      </Typography>
+      <Typography sx={{ color: 'text.secondary' }}>by {blog.author}</Typography>
+      <Typography component={Link} to={blog.url} target="_blank" sx={{
+        '&:visited': { color: 'primary.main' } 
+      }}>
+        {blog.url}
+      </Typography>
+      <Typography sx={{ color: 'text.secondary' }}>Added by {blog.user.name}</Typography>
+      <Stack direction='row' spacing={2} sx={{ alignItems: 'center' }}>
+        <Typography>Likes: {blog.likes}</Typography>
+        {user && <Button variant="outlined" onClick={handleLike} size="small">Like</Button>}
+        {user && blog.user.id === user.id 
+          && <Button variant="outlined" onClick={handleRemove} size="small" color="error">Remove</Button>
+        }
+      </Stack>
+    </Box>
   )
 }
 
