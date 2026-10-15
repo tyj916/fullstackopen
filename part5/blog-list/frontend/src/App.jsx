@@ -73,7 +73,7 @@ const App = () => {
 
   return (
     <Container>
-      <AppBar position='static'>
+      <AppBar position='static' sx={{ mb: 2 }}>
         <Toolbar>
           <Typography variant='h1' sx={{ fontSize: "2em", flexGrow: 1 }}>
             <Button 
